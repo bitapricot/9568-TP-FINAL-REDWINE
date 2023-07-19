@@ -1,0 +1,3 @@
+insert into RANGO (ID, VERSION, PUNTAJE_MAXIMO, DESCRIPCION) values (1, 0, 1000, 'Sin Rango')
+
+insert into DESARROLLADOR (ID, VERSION, RANGO_ID, PUNTOS_INVESTIGACION) values (1, 0, 1, 0)
