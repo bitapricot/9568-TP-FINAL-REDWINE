@@ -8,6 +8,6 @@ class Desarrollo {
     static belongsTo = [proyecto: Proyecto]
 
     static constraints = {
-        proyecto nullable: false
+        proyecto insertable: false, updateable: false
     }
 }

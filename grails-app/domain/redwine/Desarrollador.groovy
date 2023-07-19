@@ -7,7 +7,7 @@ class Desarrollador {
     static belongsTo = [rango: Rango]
 
     static constraints = {
-        rango nullable: false
+        rango insertable: false, updateable: false
         puntosInvestigacion nullable: false
     }
 }
