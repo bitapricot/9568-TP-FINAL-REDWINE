@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'desarrollador.label', default: 'Desarrollador')}" />
-        <title><g:message code="default.create.label" args="[entityName]" /></title>
-    </head>
-    <body>
-    <div id="content" role="main">
-        <div class="container">
-            <section class="row">
-                <a href="#create-desarrollador" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-                <div class="nav" role="navigation">
-                    <ul>
-                        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-                    </ul>
-                </div>
-            </section>
-            <section class="row">
-                <div id="create-desarrollador" class="col-12 content scaffold-create" role="main">
-                    <h1><g:message code="default.create.label" args="[entityName]" /></h1>
-                    <g:if test="${flash.message}">
-                    <div class="message" role="status">${flash.message}</div>
-                    </g:if>
-                    <g:hasErrors bean="${this.desarrollador}">
-                    <ul class="errors" role="alert">
-                        <g:eachError bean="${this.desarrollador}" var="error">
-                        <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-                        </g:eachError>
-                    </ul>
-                    </g:hasErrors>
-                    <g:form resource="${this.desarrollador}" method="POST">
-                        <fieldset class="form">
-                            <f:all bean="desarrollador"/>
-                        </fieldset>
-                        <fieldset class="buttons">
-                            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-                        </fieldset>
-                    </g:form>
-                </div>
-            </section>
-        </div>
-    </div>
-    </body>
+<head>
+    <title>Ejecutar Código Desarrollador</title>
+</head>
+<body>
+    <h1>Ejecutar Código Desarrollador</h1>
+    <textarea id="codigoDesarrollador" rows="10" cols="50">
+// Aquí ingresa tu código desarrollador
+def sum(a, b) {
+    return a + b;
+}
+    </textarea>
+    <br>
+    <button onclick="ejecutarCodigo()">Ejecutar Código</button>
+
+    <script>
+        function ejecutarCodigo() {
+            // Obtener el código del usuario desde el textarea
+            const codigo = document.getElementById('codigoDesarrollador').value;
+
+            // Construir el objeto con el código a enviar
+            const data = {
+                codigo: codigo
+            };
+
+            // Realizar la solicitud HTTP POST al endpoint del controlador
+            fetch('http://localhost:8080/progresoDesarrollador/ejecutarCodigoDesarrollador', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(resultado => {
+                // Manejar el resultado obtenido
+                console.log(resultado);
+                // Aquí puedes hacer lo que necesites con el resultado,
+                // como mostrarlo en el frontend o procesarlo de alguna otra manera.
+            })
+            .catch(error => {
+                // Manejar cualquier error que ocurra durante la solicitud
+                console.error('Error al ejecutar el código:', error);
+            });
+        }
+    </script>
+</body>
 </html>

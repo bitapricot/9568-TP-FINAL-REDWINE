@@ -3,11 +3,41 @@ package redwine
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.RestController
+
+import groovy.json.JsonSlurper
+
+import groovy.json.JsonOutput
+
 class ProgresoDesarrolladorController {
 
     ProgresoDesarrolladorService progresoDesarrolladorService
+    CodigoDesarrolladorService codigoDesarrolladorService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
+    @PostMapping("/progreso-desarrollador/ejecutar-codigo")
+    def ejecutarCodigoDesarrollador() {
+        try {
+            def requestBody = request.getInputStream().text
+            def jsonSlurper = new JsonSlurper()
+            def jsonObject = jsonSlurper.parseText(requestBody)
+            def codigo = jsonObject.codigo
+            def codigoDesarrollador = new CodigoDesarrollador(codigo)
+            def resultado = codigoDesarrolladorService.ejecutarCodigo(codigoDesarrollador)
+            render JsonOutput.toJson(resultado)
+        } catch (Exception e) {
+            render JsonOutput.toJson([error: e.message])
+        }
+    }
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)

@@ -75,6 +75,13 @@ dependencies {
     testImplementation "org.seleniumhq.selenium:selenium-support:4.0.0"
     testRuntimeOnly "org.seleniumhq.selenium:selenium-chrome-driver:4.0.0"
     testRuntimeOnly "org.seleniumhq.selenium:selenium-firefox-driver:4.0.0"
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.grails:grails-web-boot'
+    implementation 'org.grails:grails-dependencies'
+    implementation 'org.grails:grails-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
 }
 
 bootRun {
