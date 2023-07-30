@@ -20,19 +20,30 @@ import groovy.json.JsonOutput
 class ProgresoDesarrolladorController {
 
     ProgresoDesarrolladorService progresoDesarrolladorService
-    CodigoDesarrolladorService codigoDesarrolladorService
+    DesarrolloService desarrolloService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     @PostMapping("/progreso-desarrollador/ejecutar-codigo")
-    def ejecutarCodigoDesarrollador() {
+    def ejecutarPruebasAutomatizadas() {
         try {
+            // Parseamos el request, habría que obtener además: id de desarrollador & id de desarrollo 
             def requestBody = request.getInputStream().text
             def jsonSlurper = new JsonSlurper()
             def jsonObject = jsonSlurper.parseText(requestBody)
+            
             def codigo = jsonObject.codigo
-            def codigoDesarrollador = new CodigoDesarrollador(codigo)
-            def resultado = codigoDesarrolladorService.ejecutarCodigo(codigoDesarrollador)
+            def desarrolladorId = jsonObject.desarrolladorId
+            def desarrolloId = jsonObject.desarrolloId
+
+            def codigoDesarrollador = new CodigoDesarrollador(codigo, desarrolladorId)
+
+            def resultado = desarrolloService.ejecutarPruebasAutomatizadasPorDesarrolloId(codigoDesarrollador, desarrolloId)
+            
+            // TODO: implementar este método
+            progresoDesarrolladorService.actualizarProgresoPorResultadoDesarrollo(resultado)
+
+            // TODO: serializar el resultado para su manejo desde el front
             render JsonOutput.toJson(resultado)
         } catch (Exception e) {
             render JsonOutput.toJson([error: e.message])

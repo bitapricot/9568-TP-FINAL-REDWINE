@@ -2,7 +2,6 @@ package redwine
 
 import grails.gorm.services.Service
 
-@Service(Desarrollo)
 interface DesarrolloService {
 
     Desarrollo get(Serializable id)
@@ -14,5 +13,7 @@ interface DesarrolloService {
     void delete(Serializable id)
 
     Desarrollo save(Desarrollo desarrollo)
+          
+    ResultadoDesarrollo ejecutarPruebasAutomatizadasPorDesarrolloId(CodigoDesarrollador codigoDesarrollador, Long desarrolloId)
 
 }
