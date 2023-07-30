@@ -21,11 +21,13 @@ def sum(a, b) {
 
             // Construir el objeto con el código a enviar
             const data = {
-                codigo: codigo
+                codigo: codigo,
+                desarrolladorId: 1,
+                desarrolloId: 1
             };
 
             // Realizar la solicitud HTTP POST al endpoint del controlador
-            fetch('http://localhost:8080/progresoDesarrollador/ejecutarCodigoDesarrollador', {
+            fetch('http://localhost:8080/progresoDesarrollador/ejecutarPruebasAutomatizadas', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

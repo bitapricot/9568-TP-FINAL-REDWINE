@@ -2,12 +2,12 @@
 package redwine
 
 class ResultadoPrueba {
-    int pruebaId
+    PruebaAutomatizada prueba
     EstadoPrueba estado
     String output
 
-    ResultadoPrueba(int pruebaId, EstadoPrueba estado, String output) {
-        this.pruebaId = pruebaId
+    ResultadoPrueba(PruebaAutomatizada prueba, EstadoPrueba estado, String output) {
+        this.prueba = prueba
         this.estado = estado
         this.output = output
     }

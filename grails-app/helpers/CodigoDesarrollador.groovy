@@ -4,8 +4,9 @@ class CodigoDesarrollador {
     static final int MAX_LONGITUD_CODIGO = 500
 
     String valor
+    int desarrolladorId
 
-    CodigoDesarrollador(String codigo) {
+    CodigoDesarrollador(String codigo, int desarrolladorId) {
         if (!codigo || codigo.trim().isEmpty()) {
             throw new IllegalArgumentException("El código no puede estar vacío.")
         }
@@ -19,6 +20,8 @@ class CodigoDesarrollador {
         }
 
         this.valor = codigo
+        // TO-DO: validar no nulidad
+        this.desarrolladorId = desarrolladorId
     }
 
     // Verifica la sintaxis del codigo
