@@ -26,8 +26,7 @@ class ProgresoDesarrolladorService {
 
     void actualizarProgresoPorResultadoDesarrollo(ResultadoDesarrollo resultado) {
         // TO-DO: que esto sea un metodo del service de ProgresoDesarrollador
-        // TO-DO: no hardcodear ids
-        ProgresoDesarrollador progresoDesarrollador = ProgresoDesarrollador.findByDesarrolloAndDesarrollador(Desarrollo.get(1), Desarrollador.get(1))
+        ProgresoDesarrollador progresoDesarrollador = ProgresoDesarrollador.findByDesarrolloAndDesarrollador(Desarrollo.get(resultado.desarrolloId), Desarrollador.get(resultado.desarrolladorId))
         
         if (resultado.desarrolloOk()) {
             progresoDesarrollador.completado = true
