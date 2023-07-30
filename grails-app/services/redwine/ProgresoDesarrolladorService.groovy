@@ -4,7 +4,6 @@ import grails.gorm.services.Service
 
 @Service(ProgresoDesarrollador)
 class ProgresoDesarrolladorService {
-
     ProgresoDesarrollador get(Serializable id) {
         // Implementación del método get
     }
@@ -26,9 +25,20 @@ class ProgresoDesarrolladorService {
     }
 
     void actualizarProgresoPorResultadoDesarrollo(ResultadoDesarrollo resultado) {
-        // TODO: que esto sea un metodo del service de ProgresoDesarrollador
-        ProgresoDesarrollador progresoDesarrollador = ProgresoDesarrollador.findByDesarrolloAndDesarrollador(resultado.desarrolloId, resultado.desarrolladorId)
-
-        if (resultado.desarrolloOk) progresoDesarrollador.completado = true
+        // TO-DO: que esto sea un metodo del service de ProgresoDesarrollador
+        // TO-DO: no hardcodear ids
+        ProgresoDesarrollador progresoDesarrollador = ProgresoDesarrollador.findByDesarrolloAndDesarrollador(Desarrollo.get(1), Desarrollador.get(1))
+        
+        if (resultado.desarrolloOk()) {
+            progresoDesarrollador.completado = true
+            ProgresoDesarrollador.withTransaction { status ->
+                try {
+                    progresoDesarrollador.save(flush: true)
+                } catch (Exception e) {
+                    status.setRollbackOnly()
+                    println "Error al guardar progresoDesarrollador: ${e.message}"
+                }
+            }
+        }
     }
 }

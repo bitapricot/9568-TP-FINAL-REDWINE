@@ -33,7 +33,7 @@ class DesarrolloService {
 
         pruebasAutomatizadas.each { pruebaAutomatizada ->
             // TO-DO: Ejecutar la prueba
-            ResultadoPrueba resultado = pruebaAutomatizada.ejecutar()
+            ResultadoPrueba resultado = pruebaAutomatizada.ejecutar(codigoDesarrollador)
             // TO-DO: Agregar el resultado de la prueba al resultado general del desarrollo
             resultadoDesarrollo.agregarResultadoPrueba(resultado)
         }

@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.RestController
 
 import groovy.json.JsonSlurper
-
 import groovy.json.JsonOutput
+
 
 class ProgresoDesarrolladorController {
 
@@ -41,10 +41,9 @@ class ProgresoDesarrolladorController {
             def resultado = desarrolloService.ejecutarPruebasAutomatizadasPorDesarrolloId(codigoDesarrollador, desarrolloId)
             
             progresoDesarrolladorService.actualizarProgresoPorResultadoDesarrollo(resultado)
-
             render JsonOutput.toJson(resultado.serialize())
         } catch (Exception e) {
-            render JsonOutput.toJson([error: e.message])
+            render JsonOutput.toJson([error: e])
         }
     }
 

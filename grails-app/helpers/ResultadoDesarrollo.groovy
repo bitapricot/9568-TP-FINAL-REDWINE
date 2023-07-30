@@ -38,7 +38,7 @@ class ResultadoDesarrollo {
     String serialize() {
         def jsonBuilder = new JsonBuilder()
         jsonBuilder {
-            resultados resultados.collect { resultadoPrueba ->
+            resultadosPruebas resultadosPruebas.collect { resultadoPrueba ->
                 [
                     prueba: resultadoPrueba.prueba.descripcion,
                     estado: resultadoPrueba.estado.toString(),
