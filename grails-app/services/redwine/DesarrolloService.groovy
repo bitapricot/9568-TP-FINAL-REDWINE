@@ -28,13 +28,10 @@ class DesarrolloService {
     ResultadoDesarrollo ejecutarPruebasAutomatizadasPorDesarrolloId(CodigoDesarrollador codigoDesarrollador, int desarrolloId) {
         def resultadoDesarrollo = new ResultadoDesarrollo(codigoDesarrollador.desarrolladorId, desarrolloId)
 
-        // TO-DO: arreglar esto xd
         def pruebasAutomatizadas = PruebaAutomatizada.findAllByDesarrollo(Desarrollo.get(desarrolloId))
 
         pruebasAutomatizadas.each { pruebaAutomatizada ->
-            // TO-DO: Ejecutar la prueba
             ResultadoPrueba resultado = pruebaAutomatizada.ejecutar(codigoDesarrollador)
-            // TO-DO: Agregar el resultado de la prueba al resultado general del desarrollo
             resultadoDesarrollo.agregarResultadoPrueba(resultado)
         }
 
