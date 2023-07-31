@@ -6,6 +6,7 @@ class Desarrollo {
     int nroOrden
     String nombre
     String descripcion
+    String animacionData
 
     static belongsTo = [proyecto: Proyecto]
 
