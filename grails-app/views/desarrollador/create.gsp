@@ -82,17 +82,17 @@
         function ejecutarAnimacion() {
             gsap.set("#character", { x: 0 });
 
-        // Animación de caminar hacia la derecha
-        gsap.to("#character", { duration: 6, x: 450 });
+            // Animación de caminar hacia la derecha
+            gsap.to("#character", { duration: 6, x: 450 });
 
-        // Animación del salto
-        gsap.to("#character", { duration: 1, x: 500, y: -150, ease: "power2.inOut", delay: 5.5 });
+            // Animación del salto
+            gsap.to("#character", { duration: 1, x: 500, y: -150, ease: "power2.inOut", delay: 5.5 });
 
-        // Animación para aterrizar después del salto
-        gsap.to("#character", { duration: 1, x: 550, y: 0, ease: "power2.inOut", delay: 6 });
+            // Animación para aterrizar después del salto
+            gsap.to("#character", { duration: 1, x: 550, y: 0, ease: "power2.inOut", delay: 6 });
 
-        // Detener al personaje al final de la plataforma
-        gsap.to("#character", { duration: 6, x: 950, delay: 6.5 });
+            // Detener al personaje al final de la plataforma
+            gsap.to("#character", { duration: 6, x: 950, delay: 6.5 });
         }
 
         function ejecutarCodigo() {
@@ -117,8 +117,8 @@
                 .then(response => response.json())
                 .then(resultadoDesarrollo => {
                     if (resultadoDesarrollo.desarrolloOk) {
-
-                    }
+                        ejecutarAnimacion()
+                    } 
                     // TO-DO: si resultadoDesarrollo.ok => mostramos la animacion feliz
                     // sino la animacion triste
                     // y en todos los casos mostrar los outputs

@@ -1,5 +1,6 @@
 package redwine
 import groovy.json.JsonBuilder
+import groovy.json.JsonOutput
 
 class ResultadoDesarrollo {
     List<ResultadoPrueba> resultadosPruebas = []
@@ -36,16 +37,14 @@ class ResultadoDesarrollo {
     }
 
     String serialize() {
-        def jsonBuilder = new JsonBuilder()
-        jsonBuilder {
-            desarrolloOk desarrolloOk()
-            resultadosPruebas resultadosPruebas.collect { resultadoPrueba ->
+        def map = [desarrolloOk: desarrolloOk(), resultadosPruebas: resultadosPruebas.collect { resultadoPrueba ->
                 [
                     prueba: resultadoPrueba.prueba.descripcion,
                     estado: resultadoPrueba.estado.toString(),
                     output: resultadoPrueba.output
                 ]
-            }
-        }
+            }]
+        return JsonOutput.toJson(map)
     }
+
 }

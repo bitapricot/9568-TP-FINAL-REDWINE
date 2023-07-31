@@ -42,7 +42,7 @@ class ProgresoDesarrolladorController {
             def resultado = desarrolloService.ejecutarPruebasAutomatizadasPorDesarrolloId(codigoDesarrollador, desarrolloId)
             
             progresoDesarrolladorService.actualizarProgresoPorResultadoDesarrollo(resultado)
-            render JsonOutput.toJson(resultado.serialize())
+            render resultado.serialize()
         } catch (Exception e) {
             render JsonOutput.toJson([error: e])
         }
