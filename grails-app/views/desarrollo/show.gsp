@@ -13,34 +13,6 @@
             transform: scale(0.5);
             /* Ajustar el valor de escala según sea necesario */
         }
-
-        /* Estilo para posicionar el contenedor de la animación */
-        #animacionContainer #platform {
-            position: relative;
-            width: 1000px;
-            height: 30px;
-            background-color: gray;
-            margin-top: 150px;
-        }
-
-        /* Estilo para posicionar el personaje */
-        #animacionContainer #character {
-            position: absolute;
-            width: 50px;
-            height: 100px;
-            background-color: blue;
-            bottom: 30px;
-        }
-
-        /* Estilo para posicionar el obstáculo */
-        #animacionContainer #obstacle {
-            position: relative;
-            width: 50px;
-            height: 30px;
-            background-color: white;
-            bottom: 0;
-            left: 500px;
-        }
     </style>
 </head>
 
