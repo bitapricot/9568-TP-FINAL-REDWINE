@@ -50,7 +50,7 @@
             <div class="col-md-6">
                 <!-- Contenedor para la animación -->
                 <div id="animacionContainer" style="background-color: skyblue !important;">
-                    <g:encodeAs html="${animacionDataMap.html}" />
+                    
                 </div>
             </div>
             <div class="col-md-6">
@@ -93,6 +93,8 @@ int saltarObstaculo(int posicionActual) {
         }
 
         function ejecutarCodigo() {
+            reiniciarEscenario()
+            
             // Obtener el código del usuario desde el textarea
             const codigo = document.getElementById('codigoDesarrollador').value;
 
@@ -114,10 +116,10 @@ int saltarObstaculo(int posicionActual) {
                 .then(response => response.json())
                 .then(resultadoDesarrollo => {
                     if (resultadoDesarrollo.desarrolloOk) {
-                        ejecutarAnimacionOk()
+                        animaciones.ok()
                     }
                     else {
-                        ejecutarAnimacionFailed()
+                        animaciones.failed()
                     }
                     // TO-DO: si resultadoDesarrollo.ok => mostramos la animacion feliz
                     // sino la animacion triste
@@ -130,6 +132,24 @@ int saltarObstaculo(int posicionActual) {
                 });
         }
     </script>
+
+    <script>
+    function reiniciarEscenario() {
+        var divContenedor = document.getElementById("animacionContainer");
+        var contenidoHTML = unescapeHtml(`${animacionHtml}`);
+        divContenedor.innerHTML = contenidoHTML;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        reiniciarEscenario()
+    });
+    
+    const animaciones = eval(unescapeHtml(`${animacionScript}`))
+
+    function unescapeHtml(unsafeHtml) {
+        return new DOMParser().parseFromString(unsafeHtml, "text/html").documentElement.textContent;
+    }
+</script>
 </body>
 
 </html>

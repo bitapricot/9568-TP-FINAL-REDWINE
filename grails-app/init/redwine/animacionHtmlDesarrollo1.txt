@@ -1,0 +1,4 @@
+<div id="platform">
+    <div id="character"></div>
+    <div id="obstacle"></div>
+</div>

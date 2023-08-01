@@ -18,13 +18,10 @@ class DesarrolloController {
     def show(Long id) {
         def desarrollo = Desarrollo.get(id)
 
-        def jsonSlurper = new JsonSlurper()
-        def animacionDataMap = jsonSlurper.parseText(desarrollo.animacionData)
-
         // TO-DO: En algún momento habría que obtener esto de la sesión o de algún otro lado
         def currentDesarrolladorId = 1
 
-        render view: "show", model: [desarrollo: desarrollo, animacionDataMap: desarrollo.animacionData, desarrolladorId: currentDesarrolladorId]
+        render view: "show", model: [desarrollo: desarrollo, animacionHtml: desarrollo.animacionHtml, animacionScript: desarrollo.animacionScript, desarrolladorId: currentDesarrolladorId]
     }
 
 

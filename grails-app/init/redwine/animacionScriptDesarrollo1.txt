@@ -1,10 +1,5 @@
-<div id="platform">
-    <div id="character"></div>
-    <div id="obstacle"></div>
-</div>
-
-<script>
-    function ejecutarAnimacionOk() {
+function obtenerAnimaciones() {
+    const animacionOk = function ejecutarAnimacionOk() {
         gsap.set("#character", { x: 0 });
 
         // Animación de caminar hacia la derecha
@@ -20,7 +15,7 @@
         gsap.to("#character", { duration: 6, x: 950, delay: 6.5 });
     }
 
-    function ejecutarAnimacionFailed() {
+    const animacionFailed = function ejecutarAnimacionFailed() {
         gsap.set("#character", { x: 0 });
         // Animación de caminar hacia la derecha
         gsap.to("#character", { duration: 5, x: 500 });
@@ -33,4 +28,8 @@
         delay: 4,
         });
     }
-</script>
+
+    return {ok: animacionOk, failed: animacionFailed}
+}
+
+obtenerAnimaciones()
