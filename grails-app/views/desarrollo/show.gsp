@@ -13,58 +13,98 @@
             transform: scale(0.5);
             /* Ajustar el valor de escala según sea necesario */
         }
+
+        .console-style {
+            border: 1px solid black;
+            height: 150px;
+            background-color: black; /* Fondo negro */
+            color: #00FF00; /* Texto en blanco */
+            font-family: "Courier New", monospace; /* Fuente de estilo de consola */
+            padding: 10px; /* Espaciado interior para que no esté demasiado pegado al borde */
+        }
+
+        /* Estilo para el badge con fondo personalizado */
+        .badge-custom {
+            background-color: #8B0000;
+        }
     </style>
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Redwine</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Otra Página</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-text">
+                <!-- Información del usuario actual -->
+                <span class="text-light mr-3">Desarrollador 1</span>
+                <span class="badge badge-pill badge-custom">Trainee</span>
+            </div>
+        </div>
+    </nav>
     <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-                <!-- Contenedor para la animación -->
-                <div id="animacionContainer" style="background-color: skyblue !important;">
-                    
+        <div class="row gx-5 justify-content-between">
+            <!-- Contenedor para la animación -->
+            <%-- TO-DO: Modificar animacion de caida para que no caiga tan abajo del div, que quede inclinado muerto x.x --%>
+            <div class="col-4">
+                <h4>Animación</h4>
+                <div id="animacionContainer">
+                    <div id="platform">
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-5">
                 <!-- Contenedor para el input del desarrollador -->
-                <h1>Ejecutar Código Desarrollador</h1>
-                <textarea id="codigoDesarrollador" rows="10" cols="50">
-int saltarObstaculo(int posicionActual) {
-    // implementar
-}
-                </textarea>
+                <div class="form-group">
+                    <h4>Ejecutar Código Desarrollador</h4>
+                    <textarea class="form-control mt-4" id="codigoDesarrollador" rows="10" cols="20">
+                    int saltarObstaculo(int posicionActual) {
+                        // implementar
+                    }
+                    </textarea>
+                </div>
                 <br>
-                <button onclick="ejecutarCodigo()">Ejecutar Código</button>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary" onclick="ejecutarCodigo()">Ejecutar</button>
+                </div>
             </div>
         </div>
 
         <div class="row mt-5">
+            <!-- Contenedor para la consola -->
             <div class="col">
-                <!-- Contenedor para la consola -->
-                <h3>Consola</h3>
-                <div id="consola" style="border: 1px solid black; height: 200px; overflow-y: scroll;"></div>
+                <h4>Consola</h4>
+                <div id="consola" class="console-style"></div>
             </div>
         </div>
     </div>
 
-    <script>
-        function ejecutarAnimacion() {
-            gsap.set("#character", { x: 0 });
+    
+</body>
 
-        // Animación de caminar hacia la derecha
-        gsap.to("#character", { duration: 6, x: 450 });
+</html>
 
-        // Animación del salto
-        gsap.to("#character", { duration: 1, x: 500, y: -150, ease: "power2.inOut", delay: 5.5 });
+<script>
+    function reiniciarEscenario() {
+        var divContenedor = document.getElementById("animacionContainer");
+        var contenidoHTML = unescapeHtml(`${animacionHtml}`);
+        divContenedor.innerHTML = contenidoHTML;
+    }
 
-        // Animación para aterrizar después del salto
-        gsap.to("#character", { duration: 1, x: 550, y: 0, ease: "power2.inOut", delay: 6 });
-
-        // Detener al personaje al final de la plataforma
-        gsap.to("#character", { duration: 6, x: 950, delay: 6.5 });
-        }
-
-        function ejecutarCodigo() {
+    function ejecutarCodigo() {
             reiniciarEscenario()
             
             // Obtener el código del usuario desde el textarea
@@ -93,26 +133,16 @@ int saltarObstaculo(int posicionActual) {
                     else {
                         animaciones.failed()
                     }
-                    // TO-DO: si resultadoDesarrollo.ok => mostramos la animacion feliz
-                    // sino la animacion triste
-                    // y en todos los casos mostrar los outputs
-                    // es importante modificar el json de la respuesta, la respuesta es un resultadoDesarrollo
+
+                    mostrarOutput(resultadoDesarrollo.resultadosPruebas)
                 })
                 .catch(error => {
                     // Manejar cualquier error que ocurra durante la solicitud
                     console.error('Error al ejecutar el código:', error);
                 });
         }
-    </script>
 
-    <script>
-    function reiniciarEscenario() {
-        var divContenedor = document.getElementById("animacionContainer");
-        var contenidoHTML = unescapeHtml(`${animacionHtml}`);
-        divContenedor.innerHTML = contenidoHTML;
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function () {
         reiniciarEscenario()
     });
     
@@ -122,6 +152,16 @@ int saltarObstaculo(int posicionActual) {
         return new DOMParser().parseFromString(unsafeHtml, "text/html").documentElement.textContent;
     }
 </script>
-</body>
 
-</html>
+<script>
+    function mostrarOutput(output) {
+        document.getElementById("consola").innerHTML = "";
+        output.forEach(resultado => {
+            if (resultado) {
+                // TO-DO: darle otro formato al output de consola
+                var outputActual = "(" + resultado.estado + ") " + resultado.prueba + ": " + resultado.output;
+                document.getElementById("consola").innerHTML += unescapeHtml(outputActual) + "<br>";
+            }
+        });
+    }
+</script>
