@@ -2,6 +2,7 @@ package redwine
 
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
+import groovy.json.JsonSlurper
 
 class DesarrolloController {
 
@@ -15,8 +16,14 @@ class DesarrolloController {
     }
 
     def show(Long id) {
-        respond desarrolloService.get(id)
+        def desarrollo = Desarrollo.get(id)
+
+        // TO-DO: En algún momento habría que obtener esto de la sesión o de algún otro lado
+        def currentDesarrolladorId = 1
+
+        render view: "show", model: [desarrollo: desarrollo, animacionHtml: desarrollo.animacionHtml, animacionScript: desarrollo.animacionScript, desarrolladorId: currentDesarrolladorId]
     }
+
 
     def create() {
         respond new Desarrollo(params)

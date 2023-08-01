@@ -1,0 +1,35 @@
+function obtenerAnimaciones() {
+    const animacionOk = function ejecutarAnimacionOk() {
+        gsap.set("#character", { x: 0 });
+
+        // Animación de caminar hacia la derecha
+        gsap.to("#character", { duration: 6, x: 450 });
+
+        // Animación del salto
+        gsap.to("#character", { duration: 1, x: 500, y: -150, ease: "power2.inOut", delay: 5.5 });
+
+        // Animación para aterrizar después del salto
+        gsap.to("#character", { duration: 1, x: 550, y: 0, ease: "power2.inOut", delay: 6 });
+
+        // Detener al personaje al final de la plataforma
+        gsap.to("#character", { duration: 6, x: 950, delay: 6.5 });
+    }
+
+    const animacionFailed = function ejecutarAnimacionFailed() {
+        gsap.set("#character", { x: 0 });
+        // Animación de caminar hacia la derecha
+        gsap.to("#character", { duration: 5, x: 500 });
+
+        // Animación de caída al vacío con loop infinito
+        gsap.to("#character", {
+        duration: 1,
+        y: "500%",
+        ease: "power2.inOut",
+        delay: 4,
+        });
+    }
+
+    return {ok: animacionOk, failed: animacionFailed}
+}
+
+obtenerAnimaciones()

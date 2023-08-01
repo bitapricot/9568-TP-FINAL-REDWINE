@@ -19,7 +19,7 @@ import groovy.json.JsonOutput
 
 class ProgresoDesarrolladorController {
 
-// TO-DO: instanciar un ProgresoDesarrollador cuando el usuario haga click en Iniciar desarrollo
+    // TO-DO: instanciar un ProgresoDesarrollador cuando el usuario haga click en Iniciar desarrollo
     ProgresoDesarrolladorService progresoDesarrolladorService
     DesarrolloService desarrolloService
 
@@ -51,10 +51,6 @@ class ProgresoDesarrolladorController {
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond progresoDesarrolladorService.list(params), model:[progresoDesarrolladorCount: progresoDesarrolladorService.count()]
-    }
-
-    def show(Long id) {
-        respond progresoDesarrolladorService.get(id)
     }
 
     def create() {
