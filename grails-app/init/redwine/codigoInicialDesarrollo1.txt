@@ -1,0 +1,3 @@
+int saltarObstaculo(int posicionActual) {
+    // implementar
+}

@@ -6,6 +6,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css"
+        integrity="sha512-/mZ1FHPkg6EKcxo0fKXF51ak6Cr2ocgDi5ytaTBjsQZIH/RNs6GF6+oId/vPe3eJB836T36nXwVh/WBl/cWT4w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js"
+        integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-groovy.min.js"
+        integrity="sha512-3OjFYZ7G+C5LMT3IHigO6B04Qyw46Q7Symron8imAs1DhS6BMYotqF0nqrHxN5JooRIgoE6uIlN8wg8s89iF8w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.js"
+        integrity="sha512-ahAPBS5R2UFRnj1zW9oY6uEM1cjtmskMh5ZQnfhfR2Rz62wtJeox4kV26PZFEC1isI4d4QjE/8zaayPF88E0Nw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/3.0.1/standalone.js"
+        integrity="sha512-ad6Wxf3CN1YJx8EOG7UwmTl62M6gXrvPjCXZZTi3MjzQhX9cHI4jo2bLH83QvAEYttbIu+HkNW1PDUxEAYEy/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         /* Estilo para escalar el contenedor de la animación */
         #animacionContainer {
@@ -17,15 +33,30 @@
         .console-style {
             border: 1px solid black;
             height: 150px;
-            background-color: black; /* Fondo negro */
-            color: #00FF00; /* Texto en blanco */
-            font-family: "Courier New", monospace; /* Fuente de estilo de consola */
-            padding: 10px; /* Espaciado interior para que no esté demasiado pegado al borde */
+            background-color: black;
+            /* Fondo negro */
+            color: #00FF00;
+            /* Texto en blanco */
+            font-family: "Courier New", monospace;
+            /* Fuente de estilo de consola */
+            padding: 10px;
+            /* Espaciado interior para que no esté demasiado pegado al borde */
         }
 
         /* Estilo para el badge con fondo personalizado */
         .badge-custom {
             background-color: #8B0000;
+        }
+
+        code {
+            white-space: pre;
+            /* Muestra el código con el formato original */
+            font-family: monospace;
+            /* Usa una fuente de ancho fijo para mantener la alineación */
+        }
+
+        code[contenteditable]:focus {
+            outline: none;
         }
     </style>
 </head>
@@ -58,29 +89,30 @@
     <div class="container mt-5">
         <div class="row gx-5 justify-content-between">
             <!-- Contenedor para la animación -->
-            <%-- TO-DO: Modificar animacion de caida para que no caiga tan abajo del div, que quede inclinado muerto x.x --%>
-            <div class="col-4">
-                <h4>Animación</h4>
-                <div id="animacionContainer">
-                    <div id="platform">
+            <%-- TO-DO: Modificar animacion de caida para que no caiga tan abajo del div, que quede inclinado muerto x.x
+                --%>
+                <div class="col-4">
+                    <h4>Animación</h4>
+                    <div id="animacionContainer">
+                        <div id="platform">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-5">
-                <!-- Contenedor para el input del desarrollador -->
-                <div class="form-group">
-                    <h4>Ejecutar Código Desarrollador</h4>
-                    <textarea class="form-control mt-4" id="codigoDesarrollador" rows="10" cols="20">
-                    int saltarObstaculo(int posicionActual) {
-                        // implementar
-                    }
-                    </textarea>
+                <div class="col-5">
+                    <!-- Contenedor para el input del desarrollador -->
+                    <div class="form-group">
+                        <h4>Ejecutar Código Desarrollador</h4>
+                        <pre>
+<code class="language-groovy" id="codigoDesarrollador" contenteditable spellcheck="false">
+
+</code>
+</pre>
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary" onclick="ejecutarCodigo()">Ejecutar</button>
+                    </div>
                 </div>
-                <br>
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary" onclick="ejecutarCodigo()">Ejecutar</button>
-                </div>
-            </div>
         </div>
 
         <div class="row mt-5">
@@ -92,7 +124,7 @@
         </div>
     </div>
 
-    
+
 </body>
 
 </html>
@@ -105,47 +137,50 @@
     }
 
     function ejecutarCodigo() {
-            reiniciarEscenario()
-            
-            // Obtener el código del usuario desde el textarea
-            const codigo = document.getElementById('codigoDesarrollador').value;
+        reiniciarEscenario()
 
-            // Construir el objeto con el código a enviar
-            const data = {
-                codigo: codigo,
-                desarrolladorId: 1,
-                desarrolloId: 1
-            };
+        // Obtener el código del usuario desde el textarea
+        const codigo = document.getElementById('codigoDesarrollador').innerText;
 
-            // Realizar la solicitud HTTP POST al endpoint del controlador
-            fetch('http://localhost:8080/progresoDesarrollador/ejecutarPruebasAutomatizadas', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+        // Construir el objeto con el código a enviar
+        const data = {
+            codigo: codigo,
+            desarrolladorId: 1,
+            desarrolloId: 1
+        };
+
+        // Realizar la solicitud HTTP POST al endpoint del controlador
+        fetch('http://localhost:8080/progresoDesarrollador/ejecutarPruebasAutomatizadas', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(resultadoDesarrollo => {
+                if (resultadoDesarrollo.desarrolloOk) {
+                    animaciones.ok()
+                }
+                else {
+                    animaciones.failed()
+                }
+
+                mostrarOutput(resultadoDesarrollo.resultadosPruebas)
             })
-                .then(response => response.json())
-                .then(resultadoDesarrollo => {
-                    if (resultadoDesarrollo.desarrolloOk) {
-                        animaciones.ok()
-                    }
-                    else {
-                        animaciones.failed()
-                    }
+            .catch(error => {
+                // Manejar cualquier error que ocurra durante la solicitud
+                console.error('Error al ejecutar el código:', error);
+            });
+    }
 
-                    mostrarOutput(resultadoDesarrollo.resultadosPruebas)
-                })
-                .catch(error => {
-                    // Manejar cualquier error que ocurra durante la solicitud
-                    console.error('Error al ejecutar el código:', error);
-                });
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
         reiniciarEscenario()
     });
-    
+
+
+    document.getElementById('codigoDesarrollador').innerHTML = `${codigoInicial}`
+
     const animaciones = eval(unescapeHtml(`${animacionScript}`))
 
     function unescapeHtml(unsafeHtml) {

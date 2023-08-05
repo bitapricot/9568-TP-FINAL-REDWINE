@@ -21,7 +21,7 @@ class DesarrolloController {
         // TO-DO: En algún momento habría que obtener esto de la sesión o de algún otro lado
         def currentDesarrolladorId = 1
 
-        render view: "show", model: [desarrollo: desarrollo, animacionHtml: desarrollo.animacionHtml, animacionScript: desarrollo.animacionScript, desarrolladorId: currentDesarrolladorId]
+        render view: "show", model: [desarrollo: desarrollo, animacionHtml: desarrollo.animacionHtml, animacionScript: desarrollo.animacionScript, desarrolladorId: currentDesarrolladorId, codigoInicial: desarrollo.codigoInicial]
     }
 
 
