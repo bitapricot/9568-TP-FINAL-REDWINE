@@ -30,7 +30,9 @@
 
         <%-- Modales & Toasts --%>
         <g:render template="../toasts/desarrolloCompleto-toast" />
+        <g:render template="../toasts/desarrolloFallido-toast" />
         <g:render template="../modales/detalleDesarrollo-modal" />
+        <g:render template="../modales/pista-modal" />
 
         <style>
             /* Estilo para escalar el contenedor de la animación */
@@ -98,7 +100,7 @@
                 <div class="navbar-text d-flex align-items-center">
         <!-- Información del usuario actual -->
         <span style="display: flex; align-items: center;">
-            <span style="margin-right: 6px;">400</span>
+            <span id="puntosInvestigacion" style="margin-right: 6px;">${puntosInvestigacion}</span>
             <span style="border-right: 1px solid #aaa; margin-right: 10px; padding-right: 10px;">
                 <i class="fas fa-book-open" data-toggle="tooltip" data-placement="bottom" title="Puntos de Investigación" style="color: #d9b120;"></i>
             </span>
@@ -140,7 +142,7 @@ ${codigoInicial}
 </pre>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button class="btn me-2" data-toggle="tooltip" data-placement="bottom" title="Mostrar Pista"><i class="fas fa-lightbulb" style="color:gold;"></i></button>
+                        <button class="btn me-2" data-toggle="modal" data-target="#pista-modal" data-toggle="tooltip" data-placement="bottom" title="Mostrar Pista"><i class="fas fa-lightbulb" style="color:gold;"></i></button>
                         <button class="btn me-2" onclick="ejecutarCodigo()" data-toggle="tooltip" data-placement="bottom" title="Ejecutar Código"><i class="fas fa-play" style="color: #17a00d;"></i></button>
                         <button class="btn" onclick="reiniciarEscenario()"><i class="fas fa-undo" data-toggle="tooltip" data-placement="bottom" title="Reiniciar Desarrollo" style="color: #41c1e1;"></i></button> <%-- TO-DO: intentar poner la flecha curva a la izquierda --%>
                     </div>
@@ -154,21 +156,29 @@ ${codigoInicial}
                     <div id="consola" class="console-style"></div>
                 </div>
             </div>
+
             <%-- TO-DO: cambiar esto a un link que vuelva al listado de desarrollos --%>
             <div class="col input-group mt-2 d-flex align-items-center">
-                <div id="continuar"></div>
-                <i hidden id="continuarIcon" style="color: green" class="mt-1 ms-1 fas fa-forward"></i>
+                <button hidden class="btn btn-success btn-lg" id="continuar">
+                <i hidden id="continuarIcon" class="mt-1 ms-1 fas fa-forward"></i>
+                Continuar</button>
             </div>  
         </div>
     </body>
 </html>
 
 <script>
+    document.addEventListener('pistaOk', function() {
+        obtenerPista();
+    });
 document.addEventListener('finished', function(event) {
   if(event.detail == 'ok') {
     $("#desarrolloCompleto-toast").addClass("show");
-    document.getElementById('continuar').innerText = "Continuar"
+    document.getElementById('continuar').removeAttribute('hidden')
     document.getElementById('continuarIcon').removeAttribute('hidden')
+  }
+  else {
+    $("#desarrolloFallido-toast").addClass("show");
   }
   
 });
@@ -184,6 +194,28 @@ document.addEventListener("DOMContentLoaded", function () {
     Prism.highlightElement(this);
   });
 
+    function obtenerPista() {
+        // TO-DO: no hardcodear
+        const data = {
+                desarrolladorId: 1,
+                desarrolloId: 1
+            };
+        // Realizar la solicitud HTTP POST al endpoint del controlador
+            fetch('http://localhost:8080/progresoDesarrollador/obtenerPista', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+                })
+                .then(response => { return response.json() })
+                .then(res => {
+                    // TO-DO: hacer que el button de Cancelar diga "Cerrar" cuando se muestra pista y sea color primary. Cambiar titulo del modal segun lo que se muestre
+                    document.getElementById("puntosInvestigacion").innerHTML = res.puntosInvestigacion
+                    document.getElementById("pista-modalBody").innerHTML = res.descripcion
+                    document.getElementById("pista-modalAceptarButton").setAttribute("hidden","")
+                })
+    }
     function reiniciarEscenario() {
         var divContenedor = document.getElementById("animacionContainer");
         var contenidoHTML = unescapeHtml(`${animacionHtml}`);

@@ -1,8 +1,12 @@
 package redwine
+import groovy.json.JsonBuilder
+import groovy.json.JsonOutput
 
+// TO-DO: modelar pistas para HU 
 class Pista {
     Desarrollo desarrollo
-    String rutaPistas
+    String descripcion
+    int costo
 
     static belongsTo = [desarrollo: Desarrollo]
 

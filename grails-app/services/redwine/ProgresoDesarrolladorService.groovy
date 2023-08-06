@@ -40,4 +40,32 @@ class ProgresoDesarrolladorService {
             }
         }
     }
+
+    void actualizarPuntosInvestigacion(ResultadoPista resultado, Long desarrolladorId, Long desarrolloId) {
+        if (resultado.pistaObtenida) {
+            def desarrollador = Desarrollador.get(desarrolladorId)
+            desarrollador.puntosInvestigacion = resultado.puntosInvestigacionRestantes
+            
+            ProgresoDesarrollador progresoDesarrollador = ProgresoDesarrollador.findByDesarrolloAndDesarrollador(Desarrollo.get(desarrolloId), Desarrollador.get(desarrolladorId))
+            progresoDesarrollador.pistaUsada = true;
+
+            Desarrollador.withTransaction { status ->
+                try {
+                    desarrollador.save(flush: true)
+                } catch (Exception e) {
+                    status.setRollbackOnly()
+                    println "Error al guardar desarrollador: ${e.message}"
+                }
+            }
+
+            ProgresoDesarrollador.withTransaction { status ->
+                try {
+                    progresoDesarrollador.save(flush: true)
+                } catch (Exception e) {
+                    status.setRollbackOnly()
+                    println "Error al guardar progreso desarollador: ${e.message}"
+                }
+            }
+        }
+    }
 }

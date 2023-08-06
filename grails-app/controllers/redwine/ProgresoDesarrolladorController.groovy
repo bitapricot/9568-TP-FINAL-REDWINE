@@ -25,6 +25,25 @@ class ProgresoDesarrolladorController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @PostMapping("/progreso-desarrollador/obtener-pista")
+    def obtenerPista() {
+        try {
+            // Parseamos el request, habría que obtener además: id de desarrollador & id de desarrollo 
+            def requestBody = request.getInputStream().text
+            def jsonSlurper = new JsonSlurper()
+            def jsonObject = jsonSlurper.parseText(requestBody)
+            
+            def desarrolladorId = jsonObject.desarrolladorId
+            def desarrolloId = jsonObject.desarrolloId
+
+            def resultado = desarrolloService.obtenerPista(desarrolladorId, desarrolloId)
+            
+            progresoDesarrolladorService.actualizarPuntosInvestigacion(resultado, desarrolladorId, desarrolloId)
+            render resultado.serialize()
+        } catch (Exception e) {
+            render JsonOutput.toJson([error: e])
+        }
+    }
     @PostMapping("/progreso-desarrollador/ejecutar-codigo")
     def ejecutarPruebasAutomatizadas() {
         try {
