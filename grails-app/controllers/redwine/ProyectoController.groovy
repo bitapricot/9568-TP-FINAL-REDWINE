@@ -15,7 +15,21 @@ class ProyectoController {
     }
 
     def show(Long id) {
-        respond proyectoService.get(id)
+        def proyecto = proyectoService.get(id)
+        if (!proyecto) {
+            render "Proyecto no encontrado"
+            return
+        }
+
+        def desarrollos = Desarrollo.findAllByProyecto(proyecto, [sort: 'nroOrden'])
+        def investigaciones = Investigacion.findAllByProyecto(proyecto)
+
+        def items = []
+        items.addAll(desarrollos)
+        items.addAll(investigaciones)
+        items.sort { it.nroOrden }
+
+        render view: "show", model: [proyecto: proyecto, items: items]
     }
 
     def create() {
