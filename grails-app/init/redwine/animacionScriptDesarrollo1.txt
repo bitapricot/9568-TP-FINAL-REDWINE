@@ -13,6 +13,12 @@ function obtenerAnimaciones() {
 
         // Detener al personaje al final de la plataforma
         gsap.to("#character", { duration: 6, x: 950, delay: 6.5 });
+
+        gsap.to("#character", { duration: 6, x: 950, delay: 6.5, onComplete: function() {
+        const animacionTerminadaEvent = new CustomEvent('finished', { detail: 'ok' });
+        document.dispatchEvent(animacionTerminadaEvent);
+        } });
+
     }
 
     const animacionFailed = function ejecutarAnimacionFailed() {
@@ -27,6 +33,12 @@ function obtenerAnimaciones() {
         ease: "power2.inOut",
         delay: 4,
         });
+
+        gsap.to("#character", { duration: 1, y: "500%", ease: "power2.inOut", delay: 4, onComplete: function() {
+        const animacionTerminadaEvent = new CustomEvent('finished', { detail: 'failed' });
+        document.dispatchEvent(animacionTerminadaEvent);
+        } });
+
     }
 
     return {ok: animacionOk, failed: animacionFailed}
