@@ -133,9 +133,15 @@ document.addEventListener('finished', function(event) {
     $("#desarrolloCompleto-toast").addClass("show");
     document.getElementById('continuar').removeAttribute('hidden')
     document.getElementById('continuarIcon').removeAttribute('hidden')
+    setTimeout(() => {
+        $("#desarrolloCompleto-toast").toast("hide");
+    }, 4000);
   }
   else {
     $("#desarrolloFallido-toast").addClass("show");
+    setTimeout(() => {
+        $("#desarrolloFallido-toast").toast("hide");
+    }, 4000);
   }
   
 });
