@@ -5,5 +5,5 @@
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="toast-body">Obtuviste 200 puntos de progreso</div>
+    <div class="toast-body">Obtuviste 200 puntos de progreso. Estás habilitado/a para realizar el siguiente Desarrollo.</div>
 </div>

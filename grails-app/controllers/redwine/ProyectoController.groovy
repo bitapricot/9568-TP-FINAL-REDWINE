@@ -20,13 +20,23 @@ class ProyectoController {
             render "Proyecto no encontrado"
             return
         }
-
+    
         def desarrollos = Desarrollo.findAllByProyecto(proyecto, [sort: 'nroOrden'])
         def investigaciones = Investigacion.findAllByProyecto(proyecto)
 
+        // Transformar desarrollos a DesarrolloDetalle
+        def detallesDesarrollos = desarrollos.collect { desarrollo ->
+            new DesarrolloDetalle(desarrollo)
+        }
+
+        // // Transformar investigaciones a InvestigacionDetalle
+        def detallesInvestigaciones = investigaciones.collect { investigacion ->
+            new InvestigacionDetalle(investigacion)
+        }
+        
         def items = []
-        items.addAll(desarrollos)
-        items.addAll(investigaciones)
+        items.addAll(detallesDesarrollos)
+        items.addAll(detallesInvestigaciones)
         items.sort { it.nroOrden }
 
         render view: "show", model: [proyecto: proyecto, items: items]
