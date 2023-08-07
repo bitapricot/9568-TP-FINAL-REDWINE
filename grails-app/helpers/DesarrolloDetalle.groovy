@@ -6,6 +6,7 @@ class DesarrolloDetalle {
     String nombre
     String descripcion
     int nroOrden
+    boolean iniciado
     boolean completado
 
     DesarrolloDetalle(Desarrollo desarrollo) {
@@ -13,6 +14,7 @@ class DesarrolloDetalle {
         this.nombre = desarrollo.nombre
         this.descripcion = desarrollo.descripcion
         this.nroOrden = desarrollo.nroOrden
+        this.iniciado = ProgresoDesarrollador.findByDesarrollo(desarrollo) != null
         this.completado = ProgresoDesarrollador.findByDesarrollo(desarrollo)?.completado ?: false
     }
 }

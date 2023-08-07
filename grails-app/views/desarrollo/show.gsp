@@ -51,13 +51,7 @@
                 color: #00FF00; /* Texto en blanco */
                 font-family: "Courier New", monospace; /* Fuente de estilo de consola */
                 padding: 10px; /* Espaciado interior para que no esté demasiado pegado al borde */
-            }
-
-            /* Estilo para el badge con fondo personalizado */
-            .badge-custom {
-                background-color: #8B0000;
-            }
-            
+            }            
 
         code[contenteditable]:focus {
             outline: none;

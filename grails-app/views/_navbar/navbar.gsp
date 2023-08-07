@@ -76,3 +76,10 @@
         </div>
     </div>
 </nav>
+
+<style>
+    /* Estilo para el badge con fondo personalizado */
+    .badge-custom {
+        background-color: #8B0000;
+    }
+</style>
