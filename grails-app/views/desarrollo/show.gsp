@@ -287,12 +287,27 @@ document.addEventListener("DOMContentLoaded", function () {
 <script>
     function mostrarOutput(output) {
         document.getElementById("consola").innerHTML = "";
-        output.forEach(resultado => {
-            if (resultado) {
-                // TO-DO: darle otro formato al output de consola
-                var outputActual = "(" + resultado.estado + ") " + resultado.prueba + ": " + resultado.output;
-                document.getElementById("consola").innerHTML += unescapeHtml(outputActual) + "<br>";
+        let index = 0;
+
+        function mostrarSiguienteOutput() {
+            if (index < output.length) {
+                const resultado = output[index];
+                if (resultado) {
+                    var outputActual =
+                        "(" +
+                        resultado.estado +
+                        ") " +
+                        resultado.prueba +
+                        ": " +
+                        resultado.output;
+                    document.getElementById("consola").innerHTML +=
+                        unescapeHtml(outputActual) + "<br>";
+                }
+                index++;
+                setTimeout(mostrarSiguienteOutput, 2000); // 2 segundos de retraso entre cada output
             }
-        });
+        }
+
+        mostrarSiguienteOutput();
     }
 </script>

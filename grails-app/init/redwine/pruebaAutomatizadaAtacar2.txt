@@ -1,0 +1,7 @@
+boolean atacarTest() {
+    return true
+}
+
+{{reemplazar}}
+
+atacarTest()

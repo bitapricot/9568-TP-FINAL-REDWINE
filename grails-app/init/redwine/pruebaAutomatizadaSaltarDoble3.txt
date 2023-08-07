@@ -1,0 +1,9 @@
+boolean saltarDobleTest() {
+    def posActual = 1
+    posActual = saltarDoble(posActual)
+    return posActual == 4
+}
+
+{{reemplazar}}
+
+saltarDobleTest()
