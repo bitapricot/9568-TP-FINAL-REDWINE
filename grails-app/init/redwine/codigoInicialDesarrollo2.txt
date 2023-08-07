@@ -1,0 +1,3 @@
+int saltarDoble(int posicionActual) {
+    // implementar
+}

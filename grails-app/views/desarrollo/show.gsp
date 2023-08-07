@@ -33,6 +33,7 @@
         <g:render template="../toasts/desarrolloFallido-toast" />
         <g:render template="../modales/detalleDesarrollo-modal" />
         <g:render template="../modales/pista-modal" />
+        <g:render template="../modales/reiniciarProgreso-modal" />
 
         <style>
             /* Estilo para escalar el contenedor de la animación */
@@ -144,7 +145,7 @@ ${codigoInicial}
                     <div class="d-flex justify-content-end">
                         <button class="btn me-2" data-toggle="modal" data-target="#pista-modal" data-toggle="tooltip" data-placement="bottom" title="Mostrar Pista"><i class="fas fa-lightbulb" style="color:gold;"></i></button>
                         <button class="btn me-2" onclick="ejecutarCodigo()" data-toggle="tooltip" data-placement="bottom" title="Ejecutar Código"><i class="fas fa-play" style="color: #17a00d;"></i></button>
-                        <button class="btn" onclick="reiniciarEscenario()"><i class="fas fa-undo" data-toggle="tooltip" data-placement="bottom" title="Reiniciar Desarrollo" style="color: #41c1e1;"></i></button> <%-- TO-DO: intentar poner la flecha curva a la izquierda --%>
+                        <button class="btn" data-toggle="modal" data-target="#reiniciarProgreso-modal"><i class="fas fa-undo" data-toggle="tooltip" data-placement="bottom" title="Reiniciar Desarrollo" style="color: #41c1e1;"></i></button> <%-- TO-DO: intentar poner la flecha curva a la izquierda --%>
                     </div>
                 </div>
             </div>
@@ -159,9 +160,13 @@ ${codigoInicial}
 
             <%-- TO-DO: cambiar esto a un link que vuelva al listado de desarrollos --%>
             <div class="col input-group mt-2 d-flex align-items-center">
-                <button hidden class="btn btn-success btn-lg" id="continuar">
+                <%-- <button hidden class="btn btn-success btn-lg" id="continuar">
                 <i hidden id="continuarIcon" class="mt-1 ms-1 fas fa-forward"></i>
-                Continuar</button>
+                Continuar</button> --%>
+                <a hidden class="btn btn-success btn-lg" id="continuar" href="${createLink(controller: 'proyecto', action: 'show', id: 1)}">
+                <i hidden id="continuarIcon" class="mt-1 ms-1 fas fa-forward"></i>
+                Continuar</a>
+
             </div>  
         </div>
     </body>
@@ -170,6 +175,9 @@ ${codigoInicial}
 <script>
     document.addEventListener('pistaOk', function() {
         obtenerPista();
+    });
+    document.addEventListener('reiniciarOk', function() {
+        reiniciarProgreso();
     });
 document.addEventListener('finished', function(event) {
   if(event.detail == 'ok') {
@@ -185,7 +193,7 @@ document.addEventListener('finished', function(event) {
 document.addEventListener("DOMContentLoaded", function () {
   // Realizar el resaltado de sintaxis en el bloque de código inicial
   Prism.highlightElement(document.getElementById('codigoDesarrollador'));
-  reiniciarEscenario()
+  reiniciarProgreso()
   
   // Añadir un evento input para resaltar el código a medida que el usuario ingresa nuevo contenido
 });
@@ -216,11 +224,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById("pista-modalAceptarButton").setAttribute("hidden","")
                 })
     }
+
     function reiniciarEscenario() {
         var divContenedor = document.getElementById("animacionContainer");
         var contenidoHTML = unescapeHtml(`${animacionHtml}`);
         divContenedor.innerHTML = contenidoHTML;
     }
+    function reiniciarProgreso() {
+        reiniciarEscenario()
+        var codigoDesarrollador = document.getElementById("codigoDesarrollador");
+        var codigoInicial = `${codigoInicial}`;
+        codigoDesarrollador.textContent = codigoInicial;
+
+        document.getElementById("consola").innerHTML = "";
+    }
+
 
     function ejecutarCodigo() {
             reiniciarEscenario()

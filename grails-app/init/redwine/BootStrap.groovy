@@ -13,6 +13,9 @@ class BootStrap {
         def animacionHtmlDesarrollo1 = new File("grails-app/init/redwine/animacionHtmlDesarrollo1.txt").text
         def animacionScriptDesarrollo1 = new File("grails-app/init/redwine/animacionScriptDesarrollo1.txt").text
         def codigoInicialDesarrollo1 = new File("grails-app/init/redwine/codigoInicialDesarrollo1.txt").text.replace("\n", "")
+        
+        def codigoInicialDesarrollo2 = new File("grails-app/init/redwine/codigoInicialDesarrollo2.txt").text.replace("\n", "")
+        def codigoInicialDesarrollo3 = new File("grails-app/init/redwine/codigoInicialDesarrollo3.txt").text.replace("\n", "")
         // TO-DO: refactorizar la lectura del archivo de la prueba y moverlo a una RUTINA
         def contenidoArchivo = new File("grails-app/init/redwine/pruebaAutomatizadaSaltarObstaculo.txt").text
         sql = new Sql(dataSource)
@@ -27,6 +30,12 @@ class BootStrap {
         
         String updateQueryCodigoInicialDesarrollo1 = "UPDATE DESARROLLO SET CODIGO_INICIAL = ? WHERE ID = 1"
         sql.execute(updateQueryCodigoInicialDesarrollo1, [codigoInicialDesarrollo1])
+
+        String updateQueryCodigoInicialDesarrollo2 = "UPDATE DESARROLLO SET CODIGO_INICIAL = ? WHERE ID = 2"
+        sql.execute(updateQueryCodigoInicialDesarrollo2, [codigoInicialDesarrollo2])
+
+        String updateQueryCodigoInicialDesarrollo3 = "UPDATE DESARROLLO SET CODIGO_INICIAL = ? WHERE ID = 3"
+        sql.execute(updateQueryCodigoInicialDesarrollo3, [codigoInicialDesarrollo3])
 
         sql.commit()
         sql.close()
