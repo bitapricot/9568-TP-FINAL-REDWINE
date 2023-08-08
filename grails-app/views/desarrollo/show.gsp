@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
         reiniciarEscenario()
         var codigoDesarrollador = document.getElementById("codigoDesarrollador");
         var codigoInicial = `${codigoInicial}`;
-        codigoDesarrollador.innerText = codigoInicial;
+        codigoDesarrollador.textContent = codigoInicial;
 
         document.getElementById("consola").innerHTML = "";
     }

@@ -7,6 +7,7 @@ import groovy.json.JsonSlurper
 class DesarrolloController {
 
     DesarrolloService desarrolloService
+    ProgresoDesarrolladorService progresoDesarrolladorService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -22,36 +23,15 @@ class DesarrolloController {
         // TO-DO: En algún momento habría que obtener esto de la sesión o de algún otro lado
         def currentDesarrolladorId = 1
         def desarrollador = Desarrollador.get(currentDesarrolladorId)
+        
+        def progreso = progresoDesarrolladorService.obtenerProgresoDesarrollador(desarrollo, desarrollador)
 
-        if (!desarrollo) {
-            render "Error: Desarrollo encontrados."
-            return
-        }
-
-        def proyecto = desarrollo.proyecto
-        def ordenDesarrollo = desarrollo.nroOrden
-
-        // Si el desarrollo tiene orden 1, o si el ProgresoDesarrollador del desarrollo de orden 1 está completado
-        if (ordenDesarrollo == 1 || Desarrollo.findByProyectoAndNroOrden(proyecto, ordenDesarrollo - 1) &&
-                ProgresoDesarrollador.findByDesarrolloAndDesarrollador(Desarrollo.findByProyectoAndNroOrden(proyecto, ordenDesarrollo - 1), desarrollador)?.completado) {
-            
-            def progreso = ProgresoDesarrollador.findByDesarrolloAndDesarrollador(desarrollo, desarrollador)
-
-            if (!progreso) {
-                // Si no existe el ProgresoDesarrollador, lo creamos
-                progreso = new ProgresoDesarrollador(
-                    desarrollador: desarrollador,
-                    desarrollo: desarrollo,
-                    completado: false
-                )
-                progreso.save()
-            }
-        } else {
-            // Manejar caso de error: Condiciones no cumplidas
+        if (!progreso) {
             render "Error: No se cumplen las condiciones para iniciar el desarrollo."
             return
         }
 
+        // TO-DO: hacer un service para esto
         def pruebas = PruebaAutomatizada.findAllByDesarrollo(desarrollo)
         def pruebasDetalles = pruebas.collect { prueba ->
             new PruebaAutomatizadaDetalle(prueba)

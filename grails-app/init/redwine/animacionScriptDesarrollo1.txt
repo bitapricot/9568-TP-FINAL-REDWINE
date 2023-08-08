@@ -3,18 +3,18 @@ function obtenerAnimaciones() {
         gsap.set("#character", { x: 0 });
 
         // Animación de caminar hacia la derecha
-        gsap.to("#character", { duration: 6, x: 450 });
+        gsap.to("#character", { duration: 3, x: 450 });
 
         // Animación del salto
-        gsap.to("#character", { duration: 1, x: 500, y: -150, ease: "power2.inOut", delay: 5.5 });
+        gsap.to("#character", { duration: 0.5, x: 500, y: -150, ease: "power2.inOut", delay: 2.75 });
 
         // Animación para aterrizar después del salto
-        gsap.to("#character", { duration: 1, x: 550, y: 0, ease: "power2.inOut", delay: 6 });
+        gsap.to("#character", { duration: 0.5, x: 550, y: 0, ease: "power2.inOut", delay: 3 });
 
         // Detener al personaje al final de la plataforma
-        gsap.to("#character", { duration: 6, x: 950, delay: 6.5 });
+        gsap.to("#character", { duration: 3, x: 950, delay: 3.25 });
 
-        gsap.to("#character", { duration: 6, x: 950, delay: 6.5, onComplete: function() {
+        gsap.to("#character", { duration: 3, x: 950, delay: 3.25, onComplete: function() {
         const animacionTerminadaEvent = new CustomEvent('finished', { detail: 'ok' });
         document.dispatchEvent(animacionTerminadaEvent);
         } });
@@ -25,20 +25,20 @@ function obtenerAnimaciones() {
         gsap.set("#character", { x: 0 });
 
         // Animación de caminar hacia la derecha
-        gsap.to("#character", { duration: 5, x: 500 });
+        gsap.to("#character", { duration: 2.5, x: 500 });
 
         // Animación de caída al vacío
         gsap.to("#character", {
-            duration: 1,
-            y: "500%",
+            duration: 0.5,
+            y: "250%",
             ease: "power2.inOut",
-            delay: 4,
+            delay: 2,
         });
 
         // Girar en posición horizontal después de caer al vacío
         gsap.to("#character", {
-            duration: 0.5,
-            delay: 4.5,
+            duration: 0.25,
+            delay: 2.25,
             rotation: 90, // Rotación de 90 grados (posición horizontal)
             onComplete: function () {
                 const animacionTerminadaEvent = new CustomEvent('finished', { detail: 'failed' });
