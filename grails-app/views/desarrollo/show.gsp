@@ -114,7 +114,7 @@ document.addEventListener('finished', function(event) {
 document.addEventListener("DOMContentLoaded", function () {
   // Realizar el resaltado de sintaxis en el bloque de código inicial
   Prism.highlightElement(document.getElementById('codigoDesarrollador'));
-  reiniciarProgreso()
+  reiniciarEscenario()
   
   // Añadir un evento input para resaltar el código a medida que el usuario ingresa nuevo contenido
 });
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
         reiniciarEscenario()
         var codigoDesarrollador = document.getElementById("codigoDesarrollador");
         var codigoInicial = `${codigoInicial}`;
-        codigoDesarrollador.textContent = codigoInicial;
+        codigoDesarrollador.innerText = codigoInicial;
 
         document.getElementById("consola").innerHTML = "";
     }
