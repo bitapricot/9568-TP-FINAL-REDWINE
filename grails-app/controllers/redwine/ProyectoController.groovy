@@ -21,15 +21,29 @@ class ProyectoController {
             return
         }
 
+        // TO-DO: ver como pasar los datos para el navbar sin tener que incluirlo en cada controller
+        def currentDesarrolladorId = 1
+        def desarrollador = Desarrollador.get(currentDesarrolladorId)
+        
         def desarrollos = Desarrollo.findAllByProyecto(proyecto, [sort: 'nroOrden'])
         def investigaciones = Investigacion.findAllByProyecto(proyecto)
 
+        // Transformar desarrollos a DesarrolloDetalle
+        def detallesDesarrollos = desarrollos.collect { desarrollo ->
+            new DesarrolloDetalle(desarrollo)
+        }
+
+        // Transformar investigaciones a InvestigacionDetalle
+        def detallesInvestigaciones = investigaciones.collect { investigacion ->
+            new InvestigacionDetalle(investigacion)
+        }
+        
         def items = []
-        items.addAll(desarrollos)
-        items.addAll(investigaciones)
+        items.addAll(detallesDesarrollos)
+        items.addAll(detallesInvestigaciones)
         items.sort { it.nroOrden }
 
-        render view: "show", model: [proyecto: proyecto, items: items]
+        render view: "show", model: [proyecto: proyecto, items: items, desarrolladorRango: desarrollador.rango, desarrolladorId: currentDesarrolladorId, puntosInvestigacion: desarrollador.puntosInvestigacion]
     }
 
     def create() {

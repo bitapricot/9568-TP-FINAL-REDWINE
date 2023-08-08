@@ -8,7 +8,7 @@
           </button>
         </div>
         <div id="reiniciarProgreso-modalBody" class="modal-body">
-            <p>¿Estás seguro/a de que deseas reiniciar el Desarrollo 1?</p>
+            <p>¿Estás seguro/a de que deseas reiniciar el Desarrollo ${desarrolloId}?</p>
         </div>
         <div class="modal-footer">
           <button id="reiniciarProgreso-modalAceptarButton" onclick="aceptar()" type="button" data-dismiss="modal" class="btn btn-primary">Aceptar</button>

@@ -4,16 +4,62 @@
 <head>
     <title>Lista de Desarrollos e Investigaciones</title>
     <!-- Agrega aquí tus enlaces a estilos o scripts si es necesario -->
+    <g:render template="../navbar/navbar" model="[desarrollador: desarrolladorId, puntosInvestigacion:puntosInvestigacion, rango: desarrolladorRango]" />
 </head>
 <body>
-    <h1>Proyecto: ${proyecto.descripcion}</h1>
-    <h2>Desarrollos e Investigaciones:</h2>
-    <ul>
-        <g:each in="${items}" var="item">
-            <li>
-                <a href="${item instanceof Desarrollo ? createLink(controller: 'desarrollo', action: 'show', id: item.id) : createLink(controller: 'investigacion', action: 'show', id: item.id)}">${item.nombre}</a>
-            </li>
-        </g:each>
-    </ul>
+<div class="container mt-5">
+    <div class="d-flex justify-content-center">
+        <h2>• Proyecto: ${proyecto.descripcion} •</h2>
+    </div>
+        <hr>
+    <h3>Desarrollos e Investigaciones</h3>
+    <ul class="list-group">
+    <g:each in="${items}" var="item" status="i">
+        <li class="${i == 0 || items[i - 1]?.completado ? 'list-group-item list-group-item-action proyecto-item' : 'list-group-item list-group-item-action proyecto-item disabled-item'}">
+            <div class="item-content d-flex justify-content-between">
+                ${item.nombre}: ${item.descripcion}
+                <g:if test="${item instanceof DesarrolloDetalle}">
+                    <a class="btn btn-sm" href="${createLink(controller: 'desarrollo', action: 'show', id: item.id)}" ${i == 0 || items[i - 1]?.completado ? '' : 'disabled'} style="${items[i]?.iniciado ? 'color: black; background-color: #f0ad4e;' : 'color:white; background-color:  #930b0b;'}">
+                        <i class="fas fa-play" style="color: green;"></i>
+                        ${item.iniciado ? 'Continuar Desarrollo' : 'Iniciar Desarrollo'}
+                    </a>
+                </g:if>
+                <g:else>
+                    <a class="btn btn-sm" href="${createLink(controller: 'investigacion', action: 'show', id: item.id)}" ${i == 0 || items[i - 1]?.completado ? '' : 'disabled'} style="color:white; background-color: #930b0b;">
+                        <i class="fas fa-play" style="color: green;"></i>
+                        ${item.iniciado ? 'Continuar Investigación' : 'Iniciar Investigación'}
+                    </a>
+                </g:else>
+            </div>
+        </li>
+    </g:each>
+</ul>
+
+
+</div>
+
+<style>
+    /* Cambiar el cursor a predeterminado para elementos deshabilitados */
+    .proyecto-item.disabled {
+        cursor: default;
+    }
+    .disabled-item {
+        opacity: 0.6; /* Puedes ajustar la opacidad según prefieras */
+        pointer-events: none;
+    }
+</style>
+
+<script>
+    // Desactivar el enlace en los elementos deshabilitados
+    const items = document.querySelectorAll(".proyecto-item");
+    items.forEach((item) => {
+        if (item.classList.contains("disabled")) {
+            item.querySelector("a").addEventListener("click", (event) => {
+                event.preventDefault();
+            });
+        }
+    });
+</script>
+
 </body>
 </html>
