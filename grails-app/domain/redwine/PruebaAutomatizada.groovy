@@ -18,7 +18,6 @@ class PruebaAutomatizada {
             try {
                 String codigoFinal = this.obtenerCodigoFinal(codigo)
                 def resultado = Eval.me(codigoFinal)
-                println resultado
                 return new ResultadoPrueba(this, resultado ? EstadoPrueba.OK : EstadoPrueba.ERROR, resultado ? "Ok" : "Prueba fallida")
             } catch (Exception e) {
                 return new ResultadoPrueba(this, EstadoPrueba.ERROR, e.message)

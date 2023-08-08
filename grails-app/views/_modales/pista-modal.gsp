@@ -2,13 +2,13 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="pista-modalLabel">Pista Desarrollo 1</h5>
+          <h5 class="modal-title" id="pista-modalLabel">Pista Desarrollo ${desarrolloId}</h5>
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div id="pista-modalBody" class="modal-body">
-            <p>¿Estás seguro/a de que deseas obtener una Pista para el Desarrollo 1 por <b>250 Puntos de Investigación</b>?</p>
+            <p>¿Estás seguro/a de que deseas obtener una Pista para el Desarrollo ${desarrolloId} por <b>250 Puntos de Investigación</b>?</p>
         </div>
         <div class="modal-footer">
           <button id="pista-modalAceptarButton" onclick="aceptar()" type="button" class="btn btn-primary">Aceptar</button>

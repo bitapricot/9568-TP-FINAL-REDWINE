@@ -46,7 +46,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Desarrollador 1
+                    Desarrollador ${desarrolladorId}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#">Action</a>
@@ -67,7 +67,7 @@
                     <i class="fas fa-book-open" data-toggle="tooltip" data-placement="bottom" title="Puntos de Investigación" style="color: #d9b120;"></i>
                 </span>
             </span>
-            <span style="margin-right: 8px;" class="badge badge-pill badge-custom">Trainee</span>
+            <span style="margin-right: 8px;" class="badge badge-pill badge-custom">${rango.descripcion}</span>
             <span style="width: 150px;">
                 <div class="progress">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>

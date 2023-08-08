@@ -18,11 +18,18 @@ class DesarrolloController {
     def show(Long id) {
         def desarrollo = Desarrollo.get(id)
 
+        // TO-DO: ver como pasar los datos para el navbar sin tener que incluirlo en cada controller
         // TO-DO: En algún momento habría que obtener esto de la sesión o de algún otro lado
         def currentDesarrolladorId = 1
         def desarrollador = Desarrollador.get(currentDesarrolladorId)
+        
+        def pruebas = PruebaAutomatizada.findAllByDesarrollo(desarrollo)
 
-        render view: "show", model: [desarrollo: desarrollo, animacionHtml: desarrollo.animacionHtml, animacionScript: desarrollo.animacionScript, desarrolladorId: currentDesarrolladorId, codigoInicial: desarrollo.codigoInicial, puntosInvestigacion: desarrollador.puntosInvestigacion]
+        def pruebasDetalles = pruebas.collect { prueba ->
+            new PruebaAutomatizadaDetalle(prueba)
+        }
+
+        render view: "show", model: [pruebasDetalles: pruebasDetalles, desarrolladorRango: desarrollador.rango, desarrollo: desarrollo, animacionHtml: desarrollo.animacionHtml, animacionScript: desarrollo.animacionScript, desarrolladorId: currentDesarrolladorId, codigoInicial: desarrollo.codigoInicial, puntosInvestigacion: desarrollador.puntosInvestigacion]
     }
 
 

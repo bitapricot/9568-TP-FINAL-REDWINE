@@ -4,7 +4,7 @@
 <head>
     <title>Lista de Desarrollos e Investigaciones</title>
     <!-- Agrega aquí tus enlaces a estilos o scripts si es necesario -->
-    <g:render template="../navbar/navbar" />
+    <g:render template="../navbar/navbar" model="[desarrollador: desarrolladorId, puntosInvestigacion:puntosInvestigacion, rango: desarrolladorRango]" />
 </head>
 <body>
 <div class="container mt-5">

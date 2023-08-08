@@ -1,18 +1,17 @@
 <div class="modal fade" id="detalleDesarrollador-modal" tabindex="-1" role="dialog" aria-labelledby="detalleDesarrollador-modalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="detalleDesarrollador-modalLabel">Información del Desarrollo 1</h5>
+          <h5 class="modal-title" id="detalleDesarrollador-modalLabel">Información del Desarrollo ${detalle.nroOrden} del Proyecto ${detalle.proyecto.descripcion}</h5>
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-        <p>Texto descriptivo del desarrollo</p>
-          <ul>
-            <li>Prueba 1: Descripcion de lo que se testea en la Prueba</li>
-            <li>Prueba 2: Descripcion de lo que se testea en la Prueba</li>
-            <li>Prueba 3: Descripcion de lo que se testea en la Prueba</li>
+        <p>${detalle.descripcion}</p>
+          <ul class="list-group">
+            <g:each in="${pruebas}" var="prueba" status="i">
+            <li class="list-group-item list-group-item-info"><b>Prueba ${prueba.nroOrden}</b>: ${prueba.descripcion}</li>
+            </g:each>
         </ul>
         </div>
         <div class="modal-footer">
