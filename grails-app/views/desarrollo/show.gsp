@@ -41,7 +41,7 @@
                 <div class="col-4">
                     <div class="input-group">
                         <button class="btn" data-toggle="modal" data-target="#detalleDesarrollador-modal" data-toggle="tooltip" data-placement="bottom" title="Mostrar Información del Desarrollo"><i class="fas fa-info-circle fa-lg"></i></button>
-                        <h4>Titulo del Desarrollo</h4>
+                        <h4>Desarrollo ${desarrollo.nroOrden}: ${desarrollo.nombre}</h4>
                     </div>
                     <div id="animacionContainer">
                         <div id="platform">

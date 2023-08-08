@@ -1,5 +1,6 @@
 package redwine
 
+import redwine.Pregunta
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
@@ -15,7 +16,43 @@ class InvestigacionController {
     }
 
     def show(Long id) {
-        respond investigacionService.get(id)
+        def investigacion = Investigacion.get(id)
+
+        // TO-DO: ver como pasar los datos para el navbar sin tener que incluirlo en cada controller
+        // TO-DO: En algún momento habría que obtener esto de la sesión o de algún otro lado
+        def currentDesarrolladorId = 1
+        def desarrollador = Desarrollador.get(currentDesarrolladorId)
+
+        if (!investigacion) {
+            render "Error: Desarrollo encontrados."
+            return
+        }
+
+        def proyecto = investigacion.proyecto
+        def ordenInvestigacion = investigacion.nroOrden
+
+        if (Desarrollo.findByProyectoAndNroOrden(proyecto, ordenInvestigacion - 1) &&
+                ProgresoDesarrollador.findByDesarrolloAndDesarrollador(Desarrollo.findByProyectoAndNroOrden(proyecto, ordenInvestigacion - 1), desarrollador)?.completado) {
+            
+            def progreso = ProgresoInvestigacion.findByInvestigacionAndDesarrollador(investigacion, desarrollador)
+
+            if (!progreso) {
+                // Si no existe el ProgresoInvestigacion, lo creamos
+                progreso = new ProgresoInvestigacion(
+                    desarrollador: desarrollador,
+                    investigacion: investigacion,
+                    completado: false
+                )
+                progreso.save()
+            }
+        } else {
+            render "Error: No se cumplen las condiciones para iniciar la investigación."
+            return
+        }
+
+        def preguntas = Pregunta.findAllByInvestigacion(investigacion)
+
+        render view: "show", model: [preguntas: preguntas, investigacion: investigacion, desarrolladorRango: desarrollador.rango, desarrolladorId: currentDesarrolladorId, puntosInvestigacion: desarrollador.puntosInvestigacion]
     }
 
     def create() {

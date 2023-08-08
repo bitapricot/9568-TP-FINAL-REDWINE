@@ -15,17 +15,19 @@
     <h3>Desarrollos e Investigaciones</h3>
     <ul class="list-group">
     <g:each in="${items}" var="item" status="i">
-        <li class="${i == 0 || items[i - 1]?.completado ? 'list-group-item list-group-item-action proyecto-item' : 'list-group-item list-group-item-action proyecto-item disabled-item'}">
+    <%-- TO-DO: que se muestren los botones como "Completado" si se completo --%>
+    <%-- Resto 2 a NroOrden para acceder al item anterior. Si NroOrden = 4 el NroOrden anterior es 3 y su posicion en la lista de items es 2 --%>
+        <li class="${i == 0 || items[item.nroOrden - 2]?.completado ? 'list-group-item list-group-item-action proyecto-item' : 'list-group-item list-group-item-action proyecto-item disabled-item'}">
             <div class="item-content d-flex justify-content-between">
                 ${item.nombre}: ${item.descripcion}
                 <g:if test="${item instanceof DesarrolloDetalle}">
-                    <a class="btn btn-sm" href="${createLink(controller: 'desarrollo', action: 'show', id: item.id)}" ${i == 0 || items[i - 1]?.completado ? '' : 'disabled'} style="${items[i]?.iniciado ? 'color: black; background-color: #f0ad4e;' : 'color:white; background-color:  #930b0b;'}">
+                    <a class="btn btn-sm" href="${createLink(controller: 'desarrollo', action: 'show', id: item.id)}" ${i == 0 || items[item.nroOrden - 1]?.completado ? '' : 'disabled'} style="${items[i]?.iniciado ? 'color: black; background-color: #f0ad4e;' : 'color:white; background-color:  #930b0b;'}">
                         <i class="fas fa-play" style="color: green;"></i>
                         ${item.iniciado ? 'Continuar Desarrollo' : 'Iniciar Desarrollo'}
                     </a>
                 </g:if>
                 <g:else>
-                    <a class="btn btn-sm" href="${createLink(controller: 'investigacion', action: 'show', id: item.id)}" ${i == 0 || items[i - 1]?.completado ? '' : 'disabled'} style="color:white; background-color: #930b0b;">
+                    <a class="btn btn-sm" href="${createLink(controller: 'investigacion', action: 'show', id: item.id)}" ${i == 0 || items[item.nroOrden - 1]?.completado ? '' : 'disabled'} style="${items[i]?.iniciado ? 'color: black; background-color: #f0ad4e;' : 'color:white; background-color:  #930b0b;'}">
                         <i class="fas fa-play" style="color: green;"></i>
                         ${item.iniciado ? 'Continuar Investigación' : 'Iniciar Investigación'}
                     </a>

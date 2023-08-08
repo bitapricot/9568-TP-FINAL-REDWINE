@@ -1,4 +1,5 @@
 import redwine.Desarrollo
+import redwine.Desarrollador
 import redwine.ProgresoDesarrollador
 
 class DesarrolloDetalle {
@@ -9,12 +10,12 @@ class DesarrolloDetalle {
     boolean iniciado
     boolean completado
 
-    DesarrolloDetalle(Desarrollo desarrollo) {
+    DesarrolloDetalle(Desarrollo desarrollo, Desarrollador desarrollador) {
         this.id = desarrollo.id
         this.nombre = desarrollo.nombre
         this.descripcion = desarrollo.descripcion
         this.nroOrden = desarrollo.nroOrden
-        this.iniciado = ProgresoDesarrollador.findByDesarrollo(desarrollo) != null
-        this.completado = ProgresoDesarrollador.findByDesarrollo(desarrollo)?.completado ?: false
+        this.iniciado = ProgresoDesarrollador.findByDesarrolloAndDesarrollador(desarrollo, desarrollador) != null
+        this.completado = ProgresoDesarrollador.findByDesarrolloAndDesarrollador(desarrollo, desarrollador)?.completado ?: false
     }
 }

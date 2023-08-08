@@ -26,16 +26,16 @@ class ProyectoController {
         def desarrollador = Desarrollador.get(currentDesarrolladorId)
         
         def desarrollos = Desarrollo.findAllByProyecto(proyecto, [sort: 'nroOrden'])
-        def investigaciones = Investigacion.findAllByProyecto(proyecto)
+        def investigaciones = Investigacion.findAllByProyecto(proyecto, [sort: 'nroOrden'])
 
         // Transformar desarrollos a DesarrolloDetalle
         def detallesDesarrollos = desarrollos.collect { desarrollo ->
-            new DesarrolloDetalle(desarrollo)
+            new DesarrolloDetalle(desarrollo, desarrollador)
         }
 
         // Transformar investigaciones a InvestigacionDetalle
         def detallesInvestigaciones = investigaciones.collect { investigacion ->
-            new InvestigacionDetalle(investigacion)
+            new InvestigacionDetalle(investigacion, desarrollador)
         }
         
         def items = []

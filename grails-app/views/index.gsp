@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<%-- TO-DO: hacer pantalla de inicio con lista de proyectos y eliminar las vistas que no se usan --%>
     <meta name="layout" content="main"/>
     <title>Welcome to Grails</title>
 </head>
