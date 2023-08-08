@@ -1,0 +1,34 @@
+<div class="mt-5" id="platform">
+        <div class="mt-5" id="enemy"></div>
+        <div class="mt-5" id="character"></div>
+</div>
+
+<style>
+        /* Estilo para posicionar el contenedor de la animación */
+        #platform {
+            position: relative;
+            width: 1000px;
+            height: 30px;
+            background-color: gray;
+            margin-top: 150px;
+        }
+
+        /* Estilo para posicionar el personaje */
+        #character {
+            position: absolute;
+            width: 50px;
+            height: 100px;
+            background-color: blue;
+            bottom: 30px;
+        }
+
+        /* Estilo para posicionar el enemigo */
+        #enemy {
+            position: absolute;
+            width: 50px; /* Tamaño del enemigo */
+            height: 100px; /* Tamaño del enemigo */
+            background-color: red; /* Color del enemigo */
+            bottom: 30px;
+            left: 700px; /* Posición del enemigo */
+        }
+</style>
