@@ -51,9 +51,8 @@ class DesarrolloController {
             render "Error: No se cumplen las condiciones para iniciar el desarrollo."
             return
         }
-        
-        def pruebas = PruebaAutomatizada.findAllByDesarrollo(desarrollo)
 
+        def pruebas = PruebaAutomatizada.findAllByDesarrollo(desarrollo)
         def pruebasDetalles = pruebas.collect { prueba ->
             new PruebaAutomatizadaDetalle(prueba)
         }
