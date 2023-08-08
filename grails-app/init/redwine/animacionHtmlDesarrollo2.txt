@@ -1,0 +1,36 @@
+<div class="mt-5" id="platform">
+        <div class="mt-5" id="obstacle"></div>
+        <div class="mt-5" id="character"></div>
+</div>
+
+<style>
+        /* Estilo para posicionar el contenedor de la animación */
+        #platform {
+            position: relative;
+            width: 1000px;
+            height: 30px;
+            background-color: gray;
+            margin-top: 150px;
+        }
+
+        /* Estilo para posicionar el personaje */
+        #character {
+            position: absolute;
+            width: 50px;
+            height: 100px;
+            background-color: blue;
+            bottom: 30px;
+        }
+
+        /* Estilo para posicionar el obstáculo */
+        #obstacle {
+            position: relative;
+            width: 150px;
+            /* Aumentamos el tamaño del obstáculo */
+            height: 60px;
+            /* Aumentamos el tamaño del obstáculo */
+            background-color: white;
+            bottom: 0;
+            left: 500px;
+        }
+</style>
