@@ -27,7 +27,7 @@ class DesarrolloController {
             return
         }
 
-        def proyecto = Proyecto.findByDesarrollo(desarrollo)
+        def proyecto = desarrollo.proyecto
         def ordenDesarrollo = desarrollo.nroOrden
 
         // Si el desarrollo tiene orden 1, o si el ProgresoDesarrollador del desarrollo de orden 1 está completado
