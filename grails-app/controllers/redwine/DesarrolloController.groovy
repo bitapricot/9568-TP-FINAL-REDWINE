@@ -22,6 +22,35 @@ class DesarrolloController {
         def currentDesarrolladorId = 1
         def desarrollador = Desarrollador.get(currentDesarrolladorId)
 
+        if (!desarrollo) {
+            render "Error: Desarrollo encontrados."
+            return
+        }
+
+        def proyecto = Proyecto.findByDesarrollo(desarrollo)
+        def ordenDesarrollo = desarrollo.nroOrden
+
+        // Si el desarrollo tiene orden 1, o si el ProgresoDesarrollador del desarrollo de orden 1 está completado
+        if (ordenDesarrollo == 1 || Desarrollo.findByProyectoAndNroOrden(proyecto, ordenDesarrollo - 1) &&
+                ProgresoDesarrollador.findByDesarrolloAndDesarrollador(Desarrollo.findByProyectoAndNroOrden(proyecto, ordenDesarrollo - 1), desarrollador)?.completado) {
+            
+            def progreso = ProgresoDesarrollador.findByDesarrolloAndDesarrollador(desarrollo, desarrollador)
+
+            if (!progreso) {
+                // Si no existe el ProgresoDesarrollador, lo creamos
+                progreso = new ProgresoDesarrollador(
+                    desarrollador: desarrollador,
+                    desarrollo: desarrollo,
+                    completado: false
+                )
+                progreso.save()
+            }
+        } else {
+            // Manejar caso de error: Condiciones no cumplidas
+            render "Error: No se cumplen las condiciones para iniciar el desarrollo."
+            return
+        }
+
         render view: "show", model: [desarrollo: desarrollo, animacionHtml: desarrollo.animacionHtml, animacionScript: desarrollo.animacionScript, desarrolladorId: currentDesarrolladorId, codigoInicial: desarrollo.codigoInicial, puntosInvestigacion: desarrollador.puntosInvestigacion]
     }
 
