@@ -14,6 +14,12 @@ class BootStrap {
         def animacionScriptDesarrollo1 = new File("grails-app/init/redwine/animacionScriptDesarrollo1.txt").text
         def codigoInicialDesarrollo1 = new File("grails-app/init/redwine/codigoInicialDesarrollo1.txt").text.replace("\n", "")
         
+        def animacionHtmlDesarrollo2 = new File("grails-app/init/redwine/animacionHtmlDesarrollo2.txt").text
+        def animacionScriptDesarrollo2 = new File("grails-app/init/redwine/animacionScriptDesarrollo2.txt").text
+        
+        def animacionHtmlDesarrollo3 = new File("grails-app/init/redwine/animacionHtmlDesarrollo3.txt").text
+        def animacionScriptDesarrollo3 = new File("grails-app/init/redwine/animacionScriptDesarrollo3.txt").text
+        
         def codigoInicialDesarrollo2 = new File("grails-app/init/redwine/codigoInicialDesarrollo2.txt").text.replace("\n", "")
         def codigoInicialDesarrollo3 = new File("grails-app/init/redwine/codigoInicialDesarrollo3.txt").text.replace("\n", "")
         // TO-DO: refactorizar la lectura del archivo de la prueba y moverlo a una RUTINA
@@ -52,6 +58,18 @@ class BootStrap {
         
         String updateQueryScriptDesarrollo1 = "UPDATE DESARROLLO SET ANIMACION_SCRIPT = ? WHERE ID = 1"
         sql.execute(updateQueryScriptDesarrollo1, [animacionScriptDesarrollo1])
+        
+        String updateQueryHtmlDesarrollo2 = "UPDATE DESARROLLO SET ANIMACION_HTML = ? WHERE ID = 2"
+        sql.execute(updateQueryHtmlDesarrollo2, [animacionHtmlDesarrollo2])
+        
+        String updateQueryScriptDesarrollo2 = "UPDATE DESARROLLO SET ANIMACION_SCRIPT = ? WHERE ID = 2"
+        sql.execute(updateQueryScriptDesarrollo2, [animacionScriptDesarrollo2])
+        
+        String updateQueryHtmlDesarrollo3 = "UPDATE DESARROLLO SET ANIMACION_HTML = ? WHERE ID = 3"
+        sql.execute(updateQueryHtmlDesarrollo3, [animacionHtmlDesarrollo3])
+        
+        String updateQueryScriptDesarrollo3 = "UPDATE DESARROLLO SET ANIMACION_SCRIPT = ? WHERE ID = 3"
+        sql.execute(updateQueryScriptDesarrollo3, [animacionScriptDesarrollo3])
         
         String updateQueryCodigoInicialDesarrollo1 = "UPDATE DESARROLLO SET CODIGO_INICIAL = ? WHERE ID = 1"
         sql.execute(updateQueryCodigoInicialDesarrollo1, [codigoInicialDesarrollo1])

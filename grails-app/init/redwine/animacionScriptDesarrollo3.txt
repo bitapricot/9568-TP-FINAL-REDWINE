@@ -1,0 +1,43 @@
+function obtenerAnimaciones() {
+            const animacionOk = function ejecutarAnimacionOk() {
+                gsap.set("#character", { x: 0 });
+
+                gsap.to("#character", { duration: 3, x: 600 });
+
+                gsap.to("#character", { duration: 0.5, rotation: 30, ease: "power2.inOut", delay: 2.5 });
+                
+                gsap.to("#character", { duration: 0.5, rotation: 0, ease: "power2.inOut", delay: 3 });
+
+                gsap.to("#enemy", { duration: 0.5, rotation: 90, y: 50, ease: "power2.inOut", delay: 3 });
+
+                gsap.to("#character", { duration: 3, x: 950, delay: 4 });
+
+                gsap.to("#character", { duration: 3, x: 950, delay: 4, onComplete: function() {
+                    const animacionTerminadaEvent = new CustomEvent('finished', { detail: 'ok' });
+                    document.dispatchEvent(animacionTerminadaEvent);
+                } });
+            }
+
+            const animacionFailed = function ejecutarAnimacionFailed() {
+                gsap.set("#character", { x: 0 });
+
+                gsap.to("#character", { duration: 3, x: 600 });
+
+
+                gsap.to("#enemy", { duration: 0.5, rotation: -30, ease: "power2.inOut", delay: 2.5 });
+                
+                gsap.to("#enemy", { duration: 0.5, rotation: 0, ease: "power2.inOut", delay: 3 });
+
+                gsap.to("#character", { duration: 0.5, rotation: -90, y: 50, ease: "power2.inOut", delay: 3 });
+
+
+                gsap.to("#character", { duration: 0.5, delay: 3, rotation: -90, y: 50, onComplete: function() {
+                    const animacionTerminadaEvent = new CustomEvent('finished', { detail: 'failed' });
+                    document.dispatchEvent(animacionTerminadaEvent);
+                } });
+            }
+
+            return {ok: animacionOk, failed: animacionFailed}
+        }
+
+        obtenerAnimaciones();

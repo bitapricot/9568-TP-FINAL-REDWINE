@@ -114,7 +114,7 @@ document.addEventListener('finished', function(event) {
 document.addEventListener("DOMContentLoaded", function () {
   // Realizar el resaltado de sintaxis en el bloque de código inicial
   Prism.highlightElement(document.getElementById('codigoDesarrollador'));
-  reiniciarProgreso()
+  reiniciarEscenario()
   
   // Añadir un evento input para resaltar el código a medida que el usuario ingresa nuevo contenido
 });
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // TO-DO: no hardcodear
         const data = {
                 desarrolladorId: 1,
-                desarrolloId: 1
+                desarrolloId: ${desarrollo.id}
             };
         // Realizar la solicitud HTTP POST al endpoint del controlador
             fetch('http://localhost:8080/progresoDesarrollador/obtenerPista', {
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = {
                 codigo: codigo,
                 desarrolladorId: 1,
-                desarrolloId: 1
+                desarrolloId: ${desarrollo.id}
             };
 
             // Realizar la solicitud HTTP POST al endpoint del controlador

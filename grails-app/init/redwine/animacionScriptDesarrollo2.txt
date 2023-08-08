@@ -5,20 +5,27 @@ function obtenerAnimaciones() {
         // Animación de caminar hacia la derecha
         gsap.to("#character", { duration: 3, x: 450 });
 
-        // Animación del salto
-        gsap.to("#character", { duration: 0.5, x: 500, y: -150, ease: "power2.inOut", delay: 2.75 });
+        // Primer salto
+        gsap.to("#character", { duration: 0.5, x: 500, y: -50, ease: "power2.inOut", delay: 2.75 });
 
-        // Animación para aterrizar después del salto
-        gsap.to("#character", { duration: 0.5, x: 550, y: 0, ease: "power2.inOut", delay: 3 });
+        // Esperar un momento antes del segundo salto
+        gsap.delayedCall(3.25, () => {
+            // Segundo salto
+            gsap.to("#character", { duration: 0.5, x: 550, y: -100, ease: "power2.inOut" });
+
+            // Aterrizar después del segundo salto
+            gsap.to("#character", { duration: 0.5, x: 650, y: 0, ease: "power2.inOut", delay: 0.5 });
+        });
 
         // Detener al personaje al final de la plataforma
-        gsap.to("#character", { duration: 3, x: 950, delay: 3.25 });
+        gsap.to("#character", { duration: 3, x: 950, delay: 4.5 });
 
-        gsap.to("#character", { duration: 3, x: 950, delay: 3.25, onComplete: function() {
-        const animacionTerminadaEvent = new CustomEvent('finished', { detail: 'ok' });
-        document.dispatchEvent(animacionTerminadaEvent);
-        } });
-
+        gsap.to("#character", {
+            duration: 3, x: 950, delay: 4.5, onComplete: function () {
+                const animacionTerminadaEvent = new CustomEvent('finished', { detail: 'ok' });
+                document.dispatchEvent(animacionTerminadaEvent);
+            }
+        });
     }
 
     const animacionFailed = function ejecutarAnimacionFailed() {
@@ -47,7 +54,7 @@ function obtenerAnimaciones() {
         });
     }
 
-    return {ok: animacionOk, failed: animacionFailed}
+    return { ok: animacionOk, failed: animacionFailed }
 }
 
-obtenerAnimaciones()
+obtenerAnimaciones();

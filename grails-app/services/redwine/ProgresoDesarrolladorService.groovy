@@ -24,6 +24,33 @@ class ProgresoDesarrolladorService {
         // Implementación del método save
     }
 
+    def obtenerProgresoDesarrollador(Desarrollo desarrollo, Desarrollador desarrollador) {
+        def proyecto = desarrollo.proyecto
+        def ordenDesarrollo = desarrollo.nroOrden
+
+        // Si el desarrollo tiene orden 1, o si el ProgresoDesarrollador del desarrollo de orden 1 está completado
+        if (ordenDesarrollo == 1 || Desarrollo.findByProyectoAndNroOrden(proyecto, ordenDesarrollo - 1) &&
+                ProgresoDesarrollador.findByDesarrolloAndDesarrollador(Desarrollo.findByProyectoAndNroOrden(proyecto, ordenDesarrollo - 1), desarrollador)?.completado) {
+            
+            def progreso = ProgresoDesarrollador.findByDesarrolloAndDesarrollador(desarrollo, desarrollador)
+
+            if (!progreso) {
+                // Si no existe el ProgresoDesarrollador, lo creamos
+                progreso = new ProgresoDesarrollador(
+                    desarrollador: desarrollador,
+                    desarrollo: desarrollo,
+                    completado: false
+                )
+                progreso.save()
+            }
+
+            return progreso
+        } else {
+            // No cumplen las condiciones para iniciar el desarrollo
+            return null
+        }
+    }
+
     void actualizarProgresoPorResultadoDesarrollo(ResultadoDesarrollo resultado) {
         // TO-DO: que esto sea un metodo del service de ProgresoDesarrollador
         ProgresoDesarrollador progresoDesarrollador = ProgresoDesarrollador.findByDesarrolloAndDesarrollador(Desarrollo.get(resultado.desarrolloId), Desarrollador.get(resultado.desarrolladorId))
