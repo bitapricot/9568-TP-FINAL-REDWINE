@@ -2,14 +2,13 @@ package redwine
 import groovy.json.JsonBuilder
 import groovy.json.JsonOutput
 
-// TO-DO: cambiar a ResultadoObtencionPista
-class ResultadoPista {
+class ResultadoObtencionPista {
     String descripcion
     int puntosInvestigacionRestantes
     boolean pistaObtenida // para saber si pudo obtenerse segun puntos de investigacion
     boolean pistaUsada // para saber si ya fue usada
 
-    ResultadoPista(Pista pista, ProgresoDesarrollador progreso) {
+    ResultadoObtencionPista(Pista pista, ProgresoDesarrollador progreso) {
         def resto = progreso.desarrollador.puntosInvestigacion - pista.costo
         def pistaEsObtenible = resto >= 0
         def pistaFueUsada = progreso.pistaUsada

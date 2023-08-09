@@ -68,7 +68,7 @@ class ProgresoDesarrolladorService {
         }
     }
 
-    void actualizarPuntosInvestigacion(ResultadoPista resultado, Long desarrolladorId, Long desarrolloId) {
+    void actualizarPuntosInvestigacion(ResultadoObtencionPista resultado, Long desarrolladorId, Long desarrolloId) {
         if (resultado.pistaObtenida) {
             def desarrollador = Desarrollador.get(desarrolladorId)
             desarrollador.puntosInvestigacion = resultado.puntosInvestigacionRestantes

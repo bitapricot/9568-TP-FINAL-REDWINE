@@ -38,12 +38,12 @@ class DesarrolloService {
         return resultadoDesarrollo
     }
 
-     ResultadoPista obtenerPista(int desarrolladorId, int desarrolloId) {
+     ResultadoObtencionPista obtenerPista(int desarrolladorId, int desarrolloId) {
         Pista pista = Pista.findByDesarrollo(Desarrollo.get(desarrolloId))
         ProgresoDesarrollador progresoDesarrollador = ProgresoDesarrollador.findByDesarrolloAndDesarrollador(Desarrollo.get(desarrolloId), Desarrollador.get(desarrolladorId))
         
-        ResultadoPista resultadoPista = new ResultadoPista(pista, progresoDesarrollador)
+        ResultadoObtencionPista resultadoObtencionPista = new ResultadoObtencionPista(pista, progresoDesarrollador)
 
-        return resultadoPista
+        return resultadoObtencionPista
     }
 }
