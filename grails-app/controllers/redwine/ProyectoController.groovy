@@ -9,9 +9,14 @@ class ProyectoController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond proyectoService.list(params), model:[proyectoCount: proyectoService.count()]
+    // def index(Integer max) {
+    //     params.max = Math.min(max ?: 10, 100)
+    //     respond proyectoService.list(params), model:[proyectoCount: proyectoService.count()]
+    // }
+    def index() {
+        def proyectos = Proyecto.list() // Obtén la lista de proyectos desde la base de datos
+        // render view: 'index', model: [proyectos: proyectos]
+        render(view: "/index", model: [proyectos: proyectos, desarrollador: Desarrollador.get(1)])
     }
 
     def show(Long id) {

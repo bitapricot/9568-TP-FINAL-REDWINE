@@ -3,10 +3,12 @@
 <head>
 <%-- TO-DO: hacer pantalla de inicio con lista de proyectos y eliminar las vistas que no se usan --%>
     <meta name="layout" content="main"/>
-    <title>Welcome to Grails</title>
+    <title>Redwine</title>
+    <g:render template="../navbar/navbar" model="[desarrollador: desarrollador.id, puntosInvestigacion: desarrollador.puntosInvestigacion, rango: desarrollador.rango]" />
+
 </head>
 <body>
-<content tag="nav">
+<%-- <content tag="nav">
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Application Status <span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -42,32 +44,37 @@
             </g:each>
         </ul>
     </li>
-</content>
+</content> --%>
 
 <div class="svg" role="presentation">
-    <div class="grails-logo-container">
+    <%-- <div class="grails-logo-container">
         <asset:image src="grails-cupsonly-logo-white.svg" class="grails-logo"/>
-    </div>
+    </div> --%>
 </div>
 
 <div id="content" role="main">
     <div class="container">
         <section class="row colset-2-its">
-            <h1>Welcome to Grails</h1>
+            <h1>Bienvenido/a a Redwine!</h1>
 
             <p>
-                Congratulations, you have successfully started your first Grails application! At the moment
-                this is the default page, feel free to modify it to either redirect to a controller or display
-                whatever content you may choose. Below is a list of controllers that are currently deployed in
-                this application, click on each to execute its default action:
+                El proyecto Redwine es un videojuego que tiene como objetivo poner a prueba las
+                habilidades de programación del jugador bajo el rol de Desarrollador. Esto se hará a partir
+                de diferentes Proyectos, estando cada uno compuesto por uno o más Desarrollos, y una o
+                más Investigaciones. Los proyectos siguen una cierta temática y no son progresivos, por lo
+                que podrán ser elegidos por el desarrollador.
             </p>
 
+            <hr>
+
             <div id="controllers" role="navigation">
-                <h2>Available Controllers:</h2>
+                <h2>Proyectos Disponibles:</h2>
                 <ul>
-                    <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+                    <g:each var="c" in="${proyectos}">
                         <li class="controller">
-                            <g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link>
+                         <a class="btn btn-lg" href="${createLink(controller: 'proyecto', action: 'show', id: c.id)}">
+                            ${c.descripcion}
+                        </a>
                         </li>
                     </g:each>
                 </ul>
