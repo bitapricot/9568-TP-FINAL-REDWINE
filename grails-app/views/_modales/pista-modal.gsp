@@ -11,7 +11,7 @@
             <p>¿Estás seguro/a de que deseas obtener una Pista para el Desarrollo ${desarrolloId} por <b>250 Puntos de Investigación</b>?</p>
         </div>
         <div class="modal-footer">
-          <button id="pista-modalAceptarButton" onclick="aceptar()" type="button" class="btn btn-primary">Aceptar</button>
+          <button id="pista-modalAceptarButton" onclick="aceptarPista()" type="button" class="btn btn-primary">Aceptar</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
@@ -19,7 +19,7 @@
 </div>
 
 <script>
-function aceptar() {
+function aceptarPista() {
     document.dispatchEvent(new Event('pistaOk'))
 }
 </script>

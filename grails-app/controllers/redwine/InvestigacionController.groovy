@@ -3,6 +3,7 @@ package redwine
 import redwine.Pregunta
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
+import groovy.json.JsonOutput
 
 class InvestigacionController {
 
@@ -80,6 +81,53 @@ class InvestigacionController {
             '*' { respond investigacion, [status: CREATED] }
         }
     }
+
+def procesarRespuestas() {
+    def data = request.JSON
+    def investigacionId = data.investigacionId
+    def resultados = []
+
+    def esCorrecto = true;
+    data.respuestas.each { respuesta ->
+        def pregunta = Pregunta.get(respuesta.preguntaId)
+        if (pregunta) {
+            def respuestaSeleccionada = Respuesta.get(respuesta.respuestaId)
+            if (respuestaSeleccionada && !respuestaSeleccionada.esCorrecta) {
+                esCorrecto = false;
+            }
+        }
+    }
+    def currentDesarrolladorId = 1
+    def currentDesarrollador = Desarrollador.get(currentDesarrolladorId)
+    def investigacion = Investigacion.get(investigacionId)
+    def currentProgresoInvestigacion = ProgresoInvestigacion.findByInvestigacionAndDesarrollador(investigacion, currentDesarrollador)
+
+    if (esCorrecto) {
+        currentProgresoInvestigacion.completado = true
+        currentDesarrollador.puntosInvestigacion += investigacion.puntajeOtorgado
+        ProgresoInvestigacion.withTransaction { status ->
+                try {
+                    currentProgresoInvestigacion.save(flush: true)
+                } catch (Exception e) {
+                    status.setRollbackOnly()
+                    println "Error al guardar el Progreso de la Investigación: ${e.message}"
+                }
+        }
+
+        Desarrollador.withTransaction { status ->
+                try {
+                    currentDesarrollador.save(flush: true)
+                } catch (Exception e) {
+                    status.setRollbackOnly()
+                    println "Error al guardar los cambios de Desarrollador: ${e.message}"
+                }
+        }
+    }
+
+    def map = [investigacionOk: esCorrecto, puntosInvestigacion: currentDesarrollador.puntosInvestigacion, puntajeOtorgado: investigacion.puntajeOtorgado]
+    render JsonOutput.toJson(map)
+}
+
 
     def edit(Long id) {
         respond investigacionService.get(id)
