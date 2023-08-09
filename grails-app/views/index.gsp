@@ -55,7 +55,11 @@
 <div id="content" role="main">
     <div class="container">
         <section class="row colset-2-its">
-            <h1>Bienvenido/a a Redwine!</h1>
+        <div class="d-flex justify-content-center">
+            <i class="fas fa-wine-glass" style="color: #930b0b; font-size: 8em;"></i>
+        </div>
+
+            <h1>¡Bienvenido/a a Redwine!</h1>
 
             <p>
                 El proyecto Redwine es un videojuego que tiene como objetivo poner a prueba las
@@ -68,12 +72,12 @@
             <hr>
 
             <div id="controllers" role="navigation">
-                <h2>Proyectos Disponibles:</h2>
-                <ul>
+                <h3>Proyectos Disponibles:</h3>
+                <ul class="list-group">
                     <g:each var="c" in="${proyectos}">
-                        <li class="controller">
-                         <a class="btn btn-lg" href="${createLink(controller: 'proyecto', action: 'show', id: c.id)}">
-                            ${c.descripcion}
+                        <li class="list-group-item list-group-item-warning controller">
+                         <a class="btn btn-lg list-group-item-action" href="${createLink(controller: 'proyecto', action: 'show', id: c.id)}">
+                            <b>• ${c.descripcion} •</b>
                         </a>
                         </li>
                     </g:each>

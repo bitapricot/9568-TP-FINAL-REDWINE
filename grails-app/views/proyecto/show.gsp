@@ -54,7 +54,9 @@
     </g:each>
 </ul>
 
-
+<div>
+    <a class="btn btn-primary btn-sm" id="volver" href="${createLink(controller: 'proyecto', action: 'index')}">Volver</a>
+</div>
 </div>
 
 <style>
