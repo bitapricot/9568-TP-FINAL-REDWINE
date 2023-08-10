@@ -42,13 +42,24 @@ class ProyectoController {
         def detallesInvestigaciones = investigaciones.collect { investigacion ->
             new InvestigacionDetalle(investigacion, desarrollador)
         }
-        
+
+        // def progresosDesarrollador = ProgresoDesarrollador.findAllByDesarrolladorAndDesarrollo()
+
+        def progresosDesarrollador = ProgresoDesarrollador.findAll {
+            desarrollador.id == currentDesarrolladorId &&
+            desarrollo in desarrollos
+        }
+
+        def puntosProgreso = 0
+        progresosDesarrollador.collect { progreso -> 
+            puntosProgreso += progreso.completado ? progreso.desarrollo.puntajeOtorgado : 0}
+
         def items = []
         items.addAll(detallesDesarrollos)
         items.addAll(detallesInvestigaciones)
         items.sort { it.nroOrden }
 
-        render view: "show", model: [proyecto: proyecto, items: items, desarrolladorRango: desarrollador.rango, desarrolladorId: currentDesarrolladorId, puntosInvestigacion: desarrollador.puntosInvestigacion]
+        render view: "show", model: [puntosProgreso: puntosProgreso, proyecto: proyecto, items: items, desarrolladorRango: desarrollador.rango, desarrolladorId: currentDesarrolladorId, puntosInvestigacion: desarrollador.puntosInvestigacion]
     }
 
     def create() {

@@ -8,9 +8,11 @@
 </head>
 <body>
 <div class="container mt-5">
-    <div class="d-flex justify-content-center">
-        <h2>• Proyecto: ${proyecto.descripcion} •</h2>
-    </div>
+    <div class="d-flex flex-column align-items-center">
+    <h2>• Proyecto: ${proyecto.descripcion} •</h2>
+    <h4>Puntos de Progreso: ${puntosProgreso}</h4>
+</div>
+
         <hr>
     <h3>Desarrollos e Investigaciones</h3>
     <ul class="list-group">
