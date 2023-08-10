@@ -1,0 +1,46 @@
+<div id="platform">
+    <div id="object"></div>
+    <div id="enemy"></div>
+    <div id="character"></div>
+</div>
+
+<style>
+    /* Estilo para posicionar el contenedor de la animación */
+    #platform {
+        position: relative;
+        width: 1000px;
+        height: 30px;
+        background-color: gray;
+        margin-top: 150px;
+    }
+    
+    /* Estilo para posicionar el personaje */
+    #character {
+        position: absolute;
+        width: 50px;
+        height: 100px;
+        background-color: blue;
+        bottom: 30px;
+        left: 100px; /* Posición inicial del personaje */
+    }
+    
+    /* Estilo para posicionar el enemigo */
+    #enemy {
+        position: absolute;
+        width: 30px; /* Tamaño del enemigo volador ajustado */
+        height: 60px; /* Tamaño del enemigo volador ajustado */
+        background-color: red; /* Color del enemigo */
+        bottom: 75px; /* Posición sobre la plataforma */
+        left: 400px; /* Posición del enemigo volador */
+    }
+
+    /* Estilo para representar el objeto lanzado */
+    #object {
+        position: absolute;
+        bottom: 60px;
+        width: 10px;
+        height: 10px;
+        left: 100px;
+        background-color: green;
+    }
+</style>
