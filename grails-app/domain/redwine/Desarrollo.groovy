@@ -17,6 +17,7 @@ class Desarrollo {
         animacionHtml maxSize: 5000
         animacionScript maxSize: 5000
         codigoInicial maxSize: 5000
+        descripcion maxSize: 500
     }
 
     ProgresoDesarrollador iniciar(Desarrollador desarrollador) {
