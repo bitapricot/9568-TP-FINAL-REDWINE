@@ -20,8 +20,12 @@ class BootStrap {
         def animacionHtmlDesarrollo3 = new File("grails-app/init/redwine/animacionHtmlDesarrollo3.txt").text
         def animacionScriptDesarrollo3 = new File("grails-app/init/redwine/animacionScriptDesarrollo3.txt").text
         
+        def animacionHtmlDesarrollo4 = new File("grails-app/init/redwine/animacionHtmlDesarrollo4.txt").text
+        def animacionScriptDesarrollo4 = new File("grails-app/init/redwine/animacionScriptDesarrollo4.txt").text
+        
         def codigoInicialDesarrollo2 = new File("grails-app/init/redwine/codigoInicialDesarrollo2.txt").text.replace("\n", "")
         def codigoInicialDesarrollo3 = new File("grails-app/init/redwine/codigoInicialDesarrollo3.txt").text.replace("\n", "")
+        def codigoInicialDesarrollo4 = new File("grails-app/init/redwine/codigoInicialDesarrollo4.txt").text.replace("\n", "")
         // TO-DO: refactorizar la lectura del archivo de la prueba y moverlo a una RUTINA
         def pruebaAutomatizada1 = new File("grails-app/init/redwine/pruebaAutomatizadaSaltarObstaculo1.txt").text
         def pruebaAutomatizada2 = new File("grails-app/init/redwine/pruebaAutomatizadaSaltarObstaculo2.txt").text
@@ -32,6 +36,10 @@ class BootStrap {
         def pruebaAutomatizada7 = new File("grails-app/init/redwine/pruebaAutomatizadaAtacar1.txt").text
         def pruebaAutomatizada8 = new File("grails-app/init/redwine/pruebaAutomatizadaAtacar2.txt").text
         def pruebaAutomatizada9 = new File("grails-app/init/redwine/pruebaAutomatizadaAtacar3.txt").text
+        def pruebaAutomatizada10 = new File("grails-app/init/redwine/pruebaAutomatizadaAtacarADistancia1.txt").text
+        def pruebaAutomatizada11 = new File("grails-app/init/redwine/pruebaAutomatizadaAtacarADistancia2.txt").text
+        def pruebaAutomatizada12 = new File("grails-app/init/redwine/pruebaAutomatizadaAtacarADistancia3.txt").text
+        
         sql = new Sql(dataSource)
 
         String updateQueryPruebaAutomatizada1 = "UPDATE PRUEBA_AUTOMATIZADA SET CODIGO_INICIAL = ? WHERE ID = 1"
@@ -52,6 +60,12 @@ class BootStrap {
         sql.execute(updateQueryPruebaAutomatizada8, [pruebaAutomatizada8])
         String updateQueryPruebaAutomatizada9 = "UPDATE PRUEBA_AUTOMATIZADA SET CODIGO_INICIAL = ? WHERE ID = 9"
         sql.execute(updateQueryPruebaAutomatizada9, [pruebaAutomatizada9])
+        String updateQueryPruebaAutomatizada10 = "UPDATE PRUEBA_AUTOMATIZADA SET CODIGO_INICIAL = ? WHERE ID = 10"
+        sql.execute(updateQueryPruebaAutomatizada10, [pruebaAutomatizada10])
+        String updateQueryPruebaAutomatizada11 = "UPDATE PRUEBA_AUTOMATIZADA SET CODIGO_INICIAL = ? WHERE ID = 11"
+        sql.execute(updateQueryPruebaAutomatizada11, [pruebaAutomatizada11])
+        String updateQueryPruebaAutomatizada12 = "UPDATE PRUEBA_AUTOMATIZADA SET CODIGO_INICIAL = ? WHERE ID = 12"
+        sql.execute(updateQueryPruebaAutomatizada12, [pruebaAutomatizada12])
 
         String updateQueryHtmlDesarrollo1 = "UPDATE DESARROLLO SET ANIMACION_HTML = ? WHERE ID = 1"
         sql.execute(updateQueryHtmlDesarrollo1, [animacionHtmlDesarrollo1])
@@ -70,6 +84,12 @@ class BootStrap {
         
         String updateQueryScriptDesarrollo3 = "UPDATE DESARROLLO SET ANIMACION_SCRIPT = ? WHERE ID = 3"
         sql.execute(updateQueryScriptDesarrollo3, [animacionScriptDesarrollo3])
+
+        String updateQueryHtmlDesarrollo4 = "UPDATE DESARROLLO SET ANIMACION_HTML = ? WHERE ID = 4"
+        sql.execute(updateQueryHtmlDesarrollo4, [animacionHtmlDesarrollo4])
+        
+        String updateQueryScriptDesarrollo4 = "UPDATE DESARROLLO SET ANIMACION_SCRIPT = ? WHERE ID = 4"
+        sql.execute(updateQueryScriptDesarrollo4, [animacionScriptDesarrollo4])
         
         String updateQueryCodigoInicialDesarrollo1 = "UPDATE DESARROLLO SET CODIGO_INICIAL = ? WHERE ID = 1"
         sql.execute(updateQueryCodigoInicialDesarrollo1, [codigoInicialDesarrollo1])
@@ -79,6 +99,9 @@ class BootStrap {
 
         String updateQueryCodigoInicialDesarrollo3 = "UPDATE DESARROLLO SET CODIGO_INICIAL = ? WHERE ID = 3"
         sql.execute(updateQueryCodigoInicialDesarrollo3, [codigoInicialDesarrollo3])
+
+        String updateQueryCodigoInicialDesarrollo4 = "UPDATE DESARROLLO SET CODIGO_INICIAL = ? WHERE ID = 4"
+        sql.execute(updateQueryCodigoInicialDesarrollo4, [codigoInicialDesarrollo4])
 
         sql.commit()
         sql.close()

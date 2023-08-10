@@ -1,0 +1,3 @@
+int atacarADistancia(int posicionActual) {
+    // implementar
+}

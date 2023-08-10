@@ -1,0 +1,7 @@
+boolean atacarADistanciaTest() {
+    return true
+}
+
+{{reemplazar}}
+
+atacarADistanciaTest()
